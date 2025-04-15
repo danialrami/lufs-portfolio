@@ -1,0 +1,235 @@
+/* Responsive styles for LUFS Audio Portfolio Website */
+
+/* Tablet and smaller desktop */
+@media (max-width: 1200px) {
+  .category-sections {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .category-section {
+    height: 50vh;
+    min-height: 400px;
+  }
+  
+  .category-section:hover {
+    flex: 1;
+  }
+  
+  .project-card {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .project-card:nth-child(even) {
+    flex-direction: column;
+  }
+  
+  .project-media, .project-info {
+    width: 100%;
+  }
+  
+  .project-media {
+    height: 300px;
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 768px) {
+  nav {
+    padding: 1rem;
+  }
+  
+  nav .logo {
+    height: 30px;
+  }
+  
+  nav ul {
+    gap: 1rem;
+  }
+  
+  nav ul li a {
+    font-size: 0.8rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  .category-section {
+    height: 40vh;
+    min-height: 300px;
+    padding: 1rem;
+  }
+  
+  .category-content {
+    padding: 1rem;
+  }
+  
+  .category-header {
+    height: 30vh;
+  }
+  
+  .category-header-content {
+    padding: 1rem;
+    max-width: 90%;
+  }
+  
+  #portfolio-projects {
+    padding: 2rem 1rem;
+  }
+  
+  .project-card {
+    margin-bottom: 2rem;
+  }
+  
+  .project-media {
+    height: 200px;
+  }
+  
+  .project-info {
+    padding: 1.5rem;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  nav ul {
+    gap: 0.5rem;
+  }
+  
+  nav ul li a {
+    font-size: 0.7rem;
+    padding: 0.3rem 0;
+  }
+  
+  .category-section {
+    height: 50vh;
+    min-height: 250px;
+  }
+  
+  .project-media {
+    height: 180px;
+  }
+}
+
+/* Browser compatibility fixes */
+
+/* Firefox specific styles */
+@-moz-document url-prefix() {
+  .custom-cursor {
+    mix-blend-mode: normal;
+  }
+  
+  audio::-moz-media-controls-panel {
+    background-color: var(--color-medium-gray);
+  }
+}
+
+/* Safari specific styles */
+@media not all and (min-resolution:.001dpcm) { 
+  @supports (-webkit-appearance:none) {
+    .custom-cursor {
+      mix-blend-mode: normal;
+    }
+    
+    audio::-webkit-media-controls-panel {
+      background-color: var(--color-medium-gray);
+    }
+  }
+}
+
+/* Edge specific styles */
+@supports (-ms-ime-align:auto) {
+  .custom-cursor {
+    mix-blend-mode: normal;
+  }
+}
+
+/* Fallbacks for browsers without WebGL support */
+.no-webgl .category-visualization,
+.no-webgl #background-canvas {
+  display: none;
+}
+
+.no-webgl .category-section {
+  background-color: var(--color-dark-gray);
+}
+
+.no-webgl #sound-design-section {
+  background-color: rgba(120, 190, 186, 0.1);
+}
+
+.no-webgl #music-composition-section {
+  background-color: rgba(231, 178, 37, 0.1);
+}
+
+.no-webgl #technical-audio-section {
+  background-color: rgba(211, 82, 51, 0.1);
+}
+
+/* Fallbacks for browsers without Audio API support */
+.no-audio-api .audio-toggle {
+  display: none;
+}
+
+/* Print styles */
+@media print {
+  nav, footer, .audio-toggle, .custom-cursor, 
+  #background-canvas, .category-visualization {
+    display: none;
+  }
+  
+  body {
+    color: #000;
+    background-color: #fff;
+  }
+  
+  main {
+    padding-top: 0;
+  }
+  
+  .project-card {
+    page-break-inside: avoid;
+    border: 1px solid #ccc;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-teal: #00a0a0;
+    --color-red: #ff0000;
+    --color-yellow: #ffcc00;
+    --color-blue: #0000ff;
+    --color-black: #000000;
+    --color-white: #ffffff;
+  }
+  
+  .custom-cursor {
+    mix-blend-mode: normal;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+  
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

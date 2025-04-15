@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUFS Audio | Music Composition</title>
+    <!-- Preload fonts -->
+    <link rel="preload" href="assets/fonts/Inter-Regular.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="assets/fonts/Inter-Bold.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="assets/fonts/HostGrotesk-Regular.ttf" as="font" type="font/truetype" crossorigin>
+    <link rel="preload" href="assets/fonts/HostGrotesk-Bold.ttf" as="font" type="font/truetype" crossorigin>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/portfolio.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/cursor.css">
+    <link rel="stylesheet" href="css/logo-fix.css">
+    <link rel="stylesheet" href="css/section-fixes.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div class="custom-cursor"></div>
+
+    <div id="audio-toggle" class="audio-toggle">
+        <button id="toggle-audio" aria-label="Toggle audio"></button>
+    </div>
+
+    <nav>
+        <div class="logo">
+            <a href="https://lufs.audio" target="_blank">
+                <img src="assets/lufs-wordmark.png" alt="LUFS Audio">
+            </a>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sound-design.html">Sound Design</a></li>
+            <li><a href="music-composition.html" class="active">Music Composition</a></li>
+            <li><a href="technical-audio.html">Technical Audio</a></li>
+        </ul>
+    </nav>
+
+    <header class="category-header">
+        <div class="category-header-content">
+            <h1>Music Composition</h1>
+            <p>la la la, beautiful beautiful</p>
+        </div>
+        <div id="category-visualization" class="category-visualization"></div>
+    </header>
+
+    <main class="portfolio-content">
+        <section class="projects">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-media">
+                    <div class="project-image">
+                        <img src="images/placeholder-music-1.jpg" alt="Film Score">
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="audio/placeholder-music-1.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h2>Film Score</h2>
+                    <div class="project-tags">
+                        <span class="tag">Orchestral</span>
+                        <span class="tag">Cinematic</span>
+                        <span class="tag">Emotional</span>
+                    </div>
+                    <p>Composed an orchestral score for a short film, creating emotional themes that enhance the narrative arc and character development while supporting the director's vision for the project.</p>
+                    <p class="demo-note">This is a portfolio demonstration project.</p>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-media">
+                    <div class="project-image">
+                        <img src="images/placeholder-music-2.jpg" alt="Game Soundtrack">
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="audio/placeholder-music-2.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h2>Game Soundtrack</h2>
+                    <div class="project-tags">
+                        <span class="tag">Adaptive</span>
+                        <span class="tag">Electronic</span>
+                        <span class="tag">Ambient</span>
+                    </div>
+                    <p>Created an adaptive soundtrack for an indie game that dynamically responds to gameplay events and player actions, enhancing immersion through seamless musical transitions and thematic development.</p>
+                    <p class="demo-note">This is a portfolio demonstration project.</p>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-media">
+                    <div class="project-image">
+                        <img src="images/placeholder-music-3.jpg" alt="Commercial Jingle">
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="audio/placeholder-music-3.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h2>Commercial Jingle</h2>
+                    <div class="project-tags">
+                        <span class="tag">Advertising</span>
+                        <span class="tag">Branding</span>
+                        <span class="tag">Catchy</span>
+                    </div>
+                    <p>Composed a memorable jingle for a national advertising campaign that effectively communicated the brand's personality and message while creating a strong audio identity that resonates with the target audience.</p>
+                    <p class="demo-note">This is a portfolio demonstration project.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">lufs.</div>
+            <div class="footer-contact">
+                <a href="mailto:daniel@lufs.audio">daniel@lufs.audio</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2025 LUFS Audio. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <canvas id="background-canvas"></canvas>
+    
+    <script src="js/audio-controller.js"></script>
+    <script src="js/three-background.js"></script>
+    <script src="js/cursor.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

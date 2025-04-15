@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Audio On</title>
+    <g id="Audio-On" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M20,0 C31.0457,0 40,8.9543 40,20 C40,31.0457 31.0457,40 20,40 C8.9543,40 0,31.0457 0,20 C0,8.9543 8.9543,0 20,0 Z M20,2 C10.0589,2 2,10.0589 2,20 C2,29.9411 10.0589,38 20,38 C29.9411,38 38,29.9411 38,20 C38,10.0589 29.9411,2 20,2 Z" id="Circle" fill="#FFFFFF" fill-rule="nonzero"></path>
+        <path d="M16,14 L16,26 L12,26 L12,14 L16,14 Z M24,14 L24,26 L20,26 L20,14 L24,14 Z M28,14 L28,26 L28,14 Z" id="Bars" fill="#FFFFFF" fill-rule="nonzero"></path>
+    </g>
+</svg>

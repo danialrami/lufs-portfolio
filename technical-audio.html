@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUFS Audio | Technical Audio</title>
+    <!-- Preload fonts -->
+    <link rel="preload" href="assets/fonts/Inter-Regular.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="assets/fonts/Inter-Bold.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="assets/fonts/HostGrotesk-Regular.ttf" as="font" type="font/truetype" crossorigin>
+    <link rel="preload" href="assets/fonts/HostGrotesk-Bold.ttf" as="font" type="font/truetype" crossorigin>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/portfolio.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/cursor.css">
+    <link rel="stylesheet" href="css/logo-fix.css">
+    <link rel="stylesheet" href="css/section-fixes.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div class="custom-cursor"></div>
+
+    <div id="audio-toggle" class="audio-toggle">
+        <button id="toggle-audio" aria-label="Toggle audio"></button>
+    </div>
+
+    <nav>
+        <div class="logo">
+            <a href="https://lufs.audio" target="_blank">
+                <img src="assets/lufs-wordmark.png" alt="LUFS Audio">
+            </a>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sound-design.html">Sound Design</a></li>
+            <li><a href="music-composition.html">Music Composition</a></li>
+            <li><a href="technical-audio.html" class="active">Technical Audio</a></li>
+        </ul>
+    </nav>
+
+    <header class="category-header">
+        <div class="category-header-content">
+            <h1>Technical Audio</h1>
+            <p>*whirring noises*</p>
+        </div>
+        <div id="category-visualization" class="category-visualization"></div>
+    </header>
+
+    <main class="portfolio-content">
+        <section class="projects">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-media">
+                    <div class="project-image">
+                        <img src="images/placeholder-technical-1.jpg" alt="Custom Audio Plugin Development">
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="audio/placeholder-technical-1.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h2>Custom Audio Plugin Development</h2>
+                    <div class="project-tags">
+                        <span class="tag">DSP</span>
+                        <span class="tag">C++</span>
+                        <span class="tag">VST</span>
+                    </div>
+                    <p>Developed a custom audio processing plugin for a music production studio, implementing unique signal processing algorithms to achieve specific creative sound manipulation effects.</p>
+                    <p class="demo-note">This is a portfolio demonstration project.</p>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-media">
+                    <div class="project-image">
+                        <img src="images/placeholder-technical-2.jpg" alt="Audio Implementation System">
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="audio/placeholder-technical-2.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h2>Audio Implementation System</h2>
+                    <div class="project-tags">
+                        <span class="tag">Middleware</span>
+                        <span class="tag">Integration</span>
+                        <span class="tag">Unity</span>
+                    </div>
+                    <p>Created a custom audio implementation system for a game engine, providing tools for designers to efficiently integrate and control dynamic audio content without requiring programming knowledge.</p>
+                    <p class="demo-note">This is a portfolio demonstration project.</p>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-media">
+                    <div class="project-image">
+                        <img src="images/placeholder-technical-3.jpg" alt="Spatial Audio Solution">
+                    </div>
+                    <div class="audio-player">
+                        <audio controls>
+                            <source src="audio/placeholder-technical-3.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h2>Spatial Audio Solution</h2>
+                    <div class="project-tags">
+                        <span class="tag">VR/AR</span>
+                        <span class="tag">Ambisonics</span>
+                        <span class="tag">Binaural</span>
+                    </div>
+                    <p>Developed a spatial audio solution for a virtual reality experience, creating an immersive 3D soundscape that accurately positions sounds in the virtual environment and responds to user head movements.</p>
+                    <p class="demo-note">This is a portfolio demonstration project.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">lufs.</div>
+            <div class="footer-contact">
+                <a href="mailto:daniel@lufs.audio">daniel@lufs.audio</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2025 LUFS Audio. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <canvas id="background-canvas"></canvas>
+    
+    <script src="js/audio-controller.js"></script>
+    <script src="js/three-background.js"></script>
+    <script src="js/cursor.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

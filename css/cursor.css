@@ -1,0 +1,63 @@
+/* Custom cursor styles - improved responsiveness */
+.custom-cursor {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-teal);
+  pointer-events: none;
+  z-index: 9999;
+  margin-left: -5px;
+  margin-top: -5px;
+  /* Remove transform and transition for direct positioning */
+  mix-blend-mode: difference;
+}
+
+/* Hover state */
+.custom-cursor.hover {
+  transform: scale(1.5);
+  transition: transform 0.1s ease;
+}
+
+/* Active state */
+.custom-cursor.active {
+  transform: scale(0.8);
+  transition: transform 0.1s ease;
+}
+
+/* Hide default cursor */
+html, body, a, button, input, textarea, .project-card, .category-section, .audio-toggle {
+  cursor: none;
+}
+
+/* Hide cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
+  
+  html, body, a, button, input, textarea, .project-card, .category-section, .audio-toggle {
+    cursor: auto;
+  }
+}
+
+/* Custom cursor tooltip for interactive elements */
+.cursor-tooltip {
+  position: fixed;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: var(--font-secondary);
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.cursor-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

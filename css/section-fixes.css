@@ -1,0 +1,106 @@
+/* Further reduced logo size and clickable area */
+nav .logo {
+  height: 25px; /* Further reduced from 30px to 25px */
+  display: flex;
+  align-items: center;
+  max-width: 80px; /* Limit the clickable area width */
+}
+
+nav .logo img {
+  height: 100%;
+  width: auto;
+  max-width: 80px; /* Reduced from 120px to 80px */
+  object-fit: contain;
+}
+
+/* Project card hover animations */
+.project-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  background-color: #1d1d1d; /* Slightly lighter than the base color */
+}
+
+.project-info {
+  transition: padding 0.3s ease;
+}
+
+.project-card:hover .project-info {
+  padding-left: 2.5rem; /* Increase padding on hover for a subtle animation */
+}
+
+.project-image img {
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+/* Case study button styling */
+.view-case-study {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: rgba(120, 190, 186, 0.1);
+  border: 1px solid var(--color-teal);
+  border-radius: 30px;
+  color: var(--color-teal);
+  font-family: var(--font-secondary);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: 1.5rem;
+}
+
+.view-case-study:hover {
+  background-color: var(--color-teal);
+  color: var(--color-black);
+  transform: translateY(-2px);
+}
+
+/* Add a note about demo functionality */
+.demo-note {
+  font-size: 0.8rem;
+  font-family: var(--font-secondary);
+  font-style: italic;
+  color: var(--color-light-gray);
+  margin-top: 0.5rem;
+}
+
+/* Typography improvements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+}
+
+p, .tag, .category-link {
+  font-family: var(--font-secondary);
+}
+
+.main-title {
+  font-family: var(--font-primary);
+  font-weight: 700;
+}
+
+.tagline {
+  font-family: var(--font-primary);
+  font-weight: normal;
+}
+
+/* Enhance category section styling */
+.category-content h2 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+}
+
+.category-content p {
+  font-family: var(--font-secondary);
+}
+
+.category-link {
+  font-family: var(--font-secondary);
+  letter-spacing: 1px;
+}

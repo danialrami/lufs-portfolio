@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUFS Audio | Portfolio</title>
+    <!-- Preload fonts -->
+    <link rel="preload" href="assets/fonts/Inter-Regular.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="assets/fonts/Inter-Bold.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="assets/fonts/HostGrotesk-Regular.ttf" as="font" type="font/truetype" crossorigin>
+    <link rel="preload" href="assets/fonts/HostGrotesk-Bold.ttf" as="font" type="font/truetype" crossorigin>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/portfolio.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/cursor.css">
+    <link rel="stylesheet" href="css/logo-fix.css">
+    <link rel="stylesheet" href="css/section-fixes.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div class="custom-cursor"></div>
+
+    <div id="audio-toggle" class="audio-toggle">
+        <button id="toggle-audio" aria-label="Toggle audio"></button>
+    </div>
+
+    <nav>
+        <div class="logo">
+            <a href="https://lufs.audio" target="_blank">
+                <img src="assets/lufs-wordmark.png" alt="LUFS Audio">
+            </a>
+        </div>
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="sound-design.html">Sound Design</a></li>
+            <li><a href="music-composition.html">Music Composition</a></li>
+            <li><a href="technical-audio.html">Technical Audio</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="hero">
+            <div class="category-sections">
+                <!-- Sound Design Section -->
+                <div id="sound-design-section" class="category-section">
+                    <div class="category-content">
+                        <h2>Sound Design</h2>
+                        <p>bleep bloop</p>
+                        <a href="sound-design.html" class="category-link">Explore Sound Design</a>
+                    </div>
+                    <div id="sound-design-visualization" class="category-visualization"></div>
+                </div>
+
+                <!-- Music Composition Section -->
+                <div id="music-composition-section" class="category-section">
+                    <div class="category-content">
+                        <h2>Music Composition</h2>
+                        <p>la la la, beautiful beautiful</p>
+                        <a href="music-composition.html" class="category-link">Explore Music Composition</a>
+                    </div>
+                    <div id="music-composition-visualization" class="category-visualization"></div>
+                </div>
+
+                <!-- Technical Audio Section -->
+                <div id="technical-audio-section" class="category-section">
+                    <div class="category-content">
+                        <h2>Technical Audio</h2>
+                        <p>*whirring noises*</p>
+                        <a href="technical-audio.html" class="category-link">Explore Technical Audio</a>
+                    </div>
+                    <div id="technical-audio-visualization" class="category-visualization"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">lufs.</div>
+            <div class="footer-contact">
+                <a href="mailto:daniel@lufs.audio">daniel@lufs.audio</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2025 LUFS Audio. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <canvas id="background-canvas"></canvas>
+    <!--
+    <script src="js/audio-controller.js"></script> -->
+    <script src="js/three-background.js"></script>
+    <script src="js/cursor.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUFS Audio | Project Template</title>
+    <!-- Preload fonts -->
+    <link rel="preload" href="assets/fonts/Inter-Regular.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="assets/fonts/Inter-Bold.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="assets/fonts/HostGrotesk-Regular.ttf" as="font" type="font/truetype" crossorigin>
+    <link rel="preload" href="assets/fonts/HostGrotesk-Bold.ttf" as="font" type="font/truetype" crossorigin>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/portfolio.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div id="audio-toggle">
+        <button id="toggle-audio" aria-label="Toggle audio"></button>
+    </div>
+
+    <nav>
+        <div class="logo">
+            <a href="index.html">lufs.</a>
+        </div>
+        <ul>
+            <li><a href="index.html">Portfolio</a></li>
+            <li><a href="sound-design.html">Sound Design</a></li>
+            <li><a href="music-composition.html">Music Composition</a></li>
+            <li><a href="technical-audio.html">Technical Audio</a></li>
+            <li><a href="https://lufs.audio/contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="portfolio-projects">
+            <!-- Project Template - Copy this article element to add a new project -->
+            <article class="project-card">
+                <div class="project-media">
+                    <div class="project-image">
+                        <!-- Replace with your project image path -->
+                        <img src="images/your-project-image.jpg" alt="Project Title">
+                    </div>
+                    <div class="audio-player">
+                        <!-- Replace with your audio file path -->
+                        <audio src="audio/your-project-audio.mp3" controls></audio>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <!-- Replace with your project title -->
+                    <h2>Project Title</h2>
+                    <div class="project-tags">
+                        <!-- Add or remove tags as needed -->
+                        <span class="tag">Tag 1</span>
+                        <span class="tag">Tag 2</span>
+                        <span class="tag">Tag 3</span>
+                    </div>
+                    <!-- Replace with your project description -->
+                    <p>Your project description goes here. Provide a concise overview of the project, highlighting key aspects of your work and the impact it had.</p>
+                    <!-- Replace with your case study page link if applicable -->
+                    <a href="your-case-study-page.html" class="project-link">View Case Study</a>
+                </div>
+            </article>
+            <!-- End of Project Template -->
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">lufs.</div>
+            <div class="footer-contact">
+                <a href="mailto:daniel@lufs.audio">daniel@lufs.audio</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2025 LUFS Audio. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <canvas id="background-canvas"></canvas>
+    
+    <script src="js/audio-controller.js"></script>
+    <script src="js/three-background.js"></script>
+    <script src="js/audio-feedback.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

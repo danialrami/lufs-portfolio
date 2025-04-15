@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUFS Audio | Case Study Template</title>
+    <!-- Preload fonts -->
+    <link rel="preload" href="assets/fonts/Inter-Regular.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="assets/fonts/Inter-Bold.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="assets/fonts/HostGrotesk-Regular.ttf" as="font" type="font/truetype" crossorigin>
+    <link rel="preload" href="assets/fonts/HostGrotesk-Bold.ttf" as="font" type="font/truetype" crossorigin>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/portfolio.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div id="audio-toggle">
+        <button id="toggle-audio" aria-label="Toggle audio"></button>
+    </div>
+
+    <nav>
+        <div class="logo">
+            <a href="index.html">lufs.</a>
+        </div>
+        <ul>
+            <li><a href="index.html">Portfolio</a></li>
+            <li><a href="sound-design.html">Sound Design</a></li>
+            <li><a href="music-composition.html">Music Composition</a></li>
+            <li><a href="technical-audio.html">Technical Audio</a></li>
+            <li><a href="https://lufs.audio/contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="case-study-container">
+            <section class="case-study-header">
+                <h1>Project Title</h1>
+                <div class="project-tags">
+                    <span class="tag">Tag 1</span>
+                    <span class="tag">Tag 2</span>
+                    <span class="tag">Tag 3</span>
+                </div>
+            </section>
+
+            <section class="case-study-section">
+                <h2>Overview</h2>
+                <p>This is a brief overview of the project, explaining what it is, who it was for, and what the main goals were. This section should provide context for the rest of the case study.</p>
+                
+                <div class="case-study-media">
+                    <div class="case-study-image">
+                        <img src="images/placeholder-case-study-main.jpg" alt="Project Overview Image">
+                    </div>
+                </div>
+            </section>
+
+            <section class="case-study-section">
+                <h2>The Challenge</h2>
+                <p>This section describes the specific challenges that needed to be addressed in this project. What problems were you trying to solve? What constraints did you have to work within?</p>
+                <p>You can include multiple paragraphs to fully explain the complexity of the challenge and why it required your expertise to solve.</p>
+            </section>
+
+            <section class="case-study-section">
+                <h2>My Approach</h2>
+                <p>Explain your methodology and the steps you took to address the challenge. This is where you can showcase your process and the thoughtfulness behind your work.</p>
+                
+                <div class="case-study-media">
+                    <div class="case-study-audio">
+                        <h3>Audio Example 1: Initial Concept</h3>
+                        <audio src="audio/placeholder-case-study-1.mp3" controls></audio>
+                    </div>
+                </div>
+                
+                <p>Continue explaining your approach, perhaps highlighting specific techniques or tools you used. This is a good place to demonstrate your technical knowledge and creative problem-solving abilities.</p>
+                
+                <div class="case-study-media">
+                    <div class="case-study-image">
+                        <img src="images/placeholder-case-study-process.jpg" alt="Process Image">
+                    </div>
+                </div>
+            </section>
+
+            <section class="case-study-section">
+                <h2>Implementation</h2>
+                <p>Detail how you implemented your solution. This section can include technical details about the tools, software, or hardware used, as well as any integration challenges you overcame.</p>
+                
+                <div class="case-study-media">
+                    <div class="case-study-video">
+                        <video src="video/placeholder-implementation.mp4" controls></video>
+                    </div>
+                </div>
+                
+                <p>If applicable, you can include code snippets, diagrams, or other technical documentation that illustrates your implementation process.</p>
+            </section>
+
+            <section class="case-study-section">
+                <h2>Results</h2>
+                <p>Describe the outcomes of your work. What impact did your solution have? Were there any measurable improvements or positive feedback? This is where you can highlight the value you brought to the project.</p>
+                
+                <div class="case-study-quote">
+                    "Include a testimonial or quote from the client or team member that speaks to the success of your work."
+                </div>
+                
+                <div class="case-study-media">
+                    <div class="case-study-audio">
+                        <h3>Audio Example 2: Final Result</h3>
+                        <audio src="audio/placeholder-case-study-2.mp3" controls></audio>
+                    </div>
+                </div>
+            </section>
+
+            <section class="case-study-section">
+                <h2>Reflections</h2>
+                <p>Share any insights or lessons learned from this project. What would you do differently next time? What were you particularly proud of? This section adds a personal touch and shows your capacity for growth and self-reflection.</p>
+            </section>
+
+            <a href="#" class="back-to-projects">Back to Projects</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">lufs.</div>
+            <div class="footer-contact">
+                <a href="mailto:daniel@lufs.audio">daniel@lufs.audio</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2025 LUFS Audio. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <canvas id="background-canvas"></canvas>
+    
+    <script src="js/audio-controller.js"></script>
+    <script src="js/three-background.js"></script>
+    <script src="js/audio-feedback.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

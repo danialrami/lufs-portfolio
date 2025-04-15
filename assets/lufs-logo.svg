@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="150px" height="50px" viewBox="0 0 150 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>LUFS Logo</title>
+    <g id="LUFS-Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Background" fill="#111111" x="0" y="0" width="150" height="50"></rect>
+        <g id="Logo" transform="translate(10, 10)">
+            <path d="M10,0 C15.5228,0 20,4.4772 20,10 C20,15.5228 15.5228,20 10,20 C4.4772,20 0,15.5228 0,10 C0,4.4772 4.4772,0 10,0 Z" id="Circle" fill="#FFFFFF"></path>
+            <path d="M40,0 C40,0 50,5 50,10 C50,15 40,20 40,20 C40,20 30,15 30,10 C30,5 40,0 40,0 Z" id="Wave" fill="#FFFFFF"></path>
+            <rect id="Square1" fill="#E7B225" x="70" y="0" width="10" height="10" rx="2"></rect>
+            <rect id="Square2" fill="#78BEBA" x="85" y="0" width="10" height="10" rx="2"></rect>
+            <rect id="Square3" fill="#2069af" x="100" y="0" width="10" height="10" rx="2"></rect>
+            <rect id="Square4" fill="#D35233" x="115" y="0" width="10" height="10" rx="2"></rect>
+        </g>
+    </g>
+</svg>
