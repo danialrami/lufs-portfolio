@@ -599,3 +599,38 @@ audio::-webkit-media-controls-time-remaining-display {
 a, button, .project-card, .category-section, .audio-toggle {
   cursor: pointer;
 }
+
+/* Footer logo styling */
+.footer-logo {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.footer-logo a {
+  display: block;
+}
+
+.footer-logo img {
+  height: 40px;
+  width: auto;
+  transition: opacity 0.2s ease;
+}
+
+.footer-logo img:hover {
+  opacity: 0.8;
+}
+
+/* Responsive adjustments for footer logo */
+@media (max-width: 768px) {
+  .footer-logo img {
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-logo img {
+    height: 25px;
+  }
+}
