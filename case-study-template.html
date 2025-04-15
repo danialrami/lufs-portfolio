@@ -4,31 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LUFS Audio | Case Study Template</title>
+    <!-- Favicon -->
+    <link rel="icon" href="assets/lufs-LOGO-03.png" type="image/png">
     <!-- Preload fonts -->
     <link rel="preload" href="assets/fonts/Inter-Regular.otf" as="font" type="font/otf" crossorigin>
     <link rel="preload" href="assets/fonts/Inter-Bold.otf" as="font" type="font/otf" crossorigin>
     <link rel="preload" href="assets/fonts/HostGrotesk-Regular.ttf" as="font" type="font/truetype" crossorigin>
     <link rel="preload" href="assets/fonts/HostGrotesk-Bold.ttf" as="font" type="font/truetype" crossorigin>
+    <!-- Preload audio files -->
+    <link rel="preload" href="audio/hover.mp3" as="audio">
+    <link rel="preload" href="audio/click.mp3" as="audio">
+    <link rel="preload" href="audio/ambient.mp3" as="audio">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/cursor.css">
+    <link rel="stylesheet" href="css/logo-fix.css">
+    <link rel="stylesheet" href="css/section-fixes.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-    <div id="audio-toggle">
-        <button id="toggle-audio" aria-label="Toggle audio"></button>
+    <div class="custom-cursor"></div>
+
+    <!-- Audio controls -->
+    <div class="audio-controls">
+        <button class="audio-toggle" aria-label="Toggle audio">
+            <span class="audio-icon"></span>
+        </button>
+        <div class="volume-slider">
+            <input type="range" min="0" max="100" value="75" class="volume-range">
+        </div>
     </div>
 
     <nav>
         <div class="logo">
-            <a href="index.html">lufs.</a>
+            <a href="index.html">
+                <img src="assets/lufs-wordmark.png" alt="LUFS Audio">
+            </a>
         </div>
         <ul>
             <li><a href="index.html">Portfolio</a></li>
             <li><a href="sound-design.html">Sound Design</a></li>
             <li><a href="music-composition.html">Music Composition</a></li>
             <li><a href="technical-audio.html">Technical Audio</a></li>
-            <li><a href="https://lufs.audio/contact">Contact</a></li>
         </ul>
     </nav>
 
@@ -120,7 +138,11 @@
 
     <footer>
         <div class="footer-content">
-            <div class="footer-logo">lufs.</div>
+            <div class="footer-logo">
+                <a href="https://lufs.audio" target="_blank">
+                    <img src="assets/lufs-LOGO-03.png" alt="LUFS Audio">
+                </a>
+            </div>
             <div class="footer-contact">
                 <a href="mailto:daniel@lufs.audio">daniel@lufs.audio</a>
             </div>
@@ -134,7 +156,7 @@
     
     <script src="js/audio-controller.js"></script>
     <script src="js/three-background.js"></script>
-    <script src="js/audio-feedback.js"></script>
+    <script src="js/cursor.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

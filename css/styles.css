@@ -16,7 +16,7 @@
 }
 
 /* Reset and base styles */
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -433,38 +433,6 @@ main {
   color: var(--color-black);
 }
 
-/* Audio Toggle Button */
-.audio-toggle {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 100;
-  width: 40px;
-  height: 40px;
-}
-
-#toggle-audio {
-  width: 100%;
-  height: 100%;
-  border: none;
-  background-color: transparent;
-  background-image: url('../assets/audio-on.svg');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-}
-
-#toggle-audio:hover {
-  opacity: 1;
-}
-
-#toggle-audio.muted {
-  background-image: url('../assets/audio-off.svg');
-}
-
 /* Footer */
 footer {
   padding: 3rem 2rem;
@@ -493,6 +461,22 @@ footer {
 .footer-logo {
   font-size: 2rem;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.footer-logo a {
+  display: block;
+}
+
+.footer-logo img {
+  height: 40px;
+  width: auto;
+  transition: opacity 0.2s ease;
+}
+
+.footer-logo img:hover {
+  opacity: 0.8;
 }
 
 .footer-contact a {
@@ -545,6 +529,151 @@ footer {
   mix-blend-mode: difference;
 }
 
+/* Audio player styling */
+audio::-webkit-media-controls-panel {
+  background-color: var(--color-medium-gray);
+}
+
+audio::-webkit-media-controls-play-button {
+  background-color: var(--color-teal);
+  border-radius: 50%;
+}
+
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+  color: var(--color-white);
+}
+
+/* Ensure all interactive elements have proper cursor */
+a, button, .project-card, .category-section {
+  cursor: pointer;
+}
+
+/* ===== Audio Controls ===== */
+.audio-controls {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  z-index: 100;
+}
+
+.audio-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease;
+  border: none;
+  cursor: pointer;
+  z-index: 2; /* Ensure button stays on top */
+}
+
+.audio-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.audio-icon {
+  position: relative;
+  width: 15px;
+  height: 15px;
+}
+
+.audio-icon::before,
+.audio-icon::after {
+  content: '';
+  position: absolute;
+  background-color: #78BEBA;
+}
+
+.audio-icon::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.audio-icon::after {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #78BEBA;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) scale(1.5);
+  animation: pulse 2s infinite;
+  background-color: transparent;
+  will-change: transform, opacity; /* Hardware acceleration hint */
+}
+
+.audio-toggle.muted .audio-icon::after {
+  animation: none;
+  transform: translateY(-50%) scale(1);
+  opacity: 0.5;
+}
+
+.volume-slider {
+  width: 0;
+  overflow: hidden;
+  transition: width 0.4s ease;
+  margin-left: 10px;
+  position: relative; /* Change from absolute to relative */
+  white-space: nowrap; /* Prevent line breaks */
+}
+
+.audio-controls:hover .volume-slider {
+  width: 100px;
+}
+
+.volume-range {
+  width: 100px;
+  height: 4px;
+  -webkit-appearance: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  outline: none;
+}
+
+.volume-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #78BEBA;
+  cursor: pointer;
+}
+
+.volume-range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #78BEBA;
+  cursor: pointer;
+  border: none;
+}
+
+/* Pulse animation for audio icon */
+@keyframes pulse {
+  0% {
+    transform: translateY(-50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-50%) scale(1.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-50%) scale(1);
+    opacity: 1;
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 767px) {
   h1 {
@@ -578,52 +707,8 @@ footer {
   .project-info {
     padding: 1.5rem;
   }
-}
-
-/* Audio player styling */
-audio::-webkit-media-controls-panel {
-  background-color: var(--color-medium-gray);
-}
-
-audio::-webkit-media-controls-play-button {
-  background-color: var(--color-teal);
-  border-radius: 50%;
-}
-
-audio::-webkit-media-controls-current-time-display,
-audio::-webkit-media-controls-time-remaining-display {
-  color: var(--color-white);
-}
-
-/* Ensure all interactive elements have proper cursor */
-a, button, .project-card, .category-section, .audio-toggle {
-  cursor: pointer;
-}
-
-/* Footer logo styling */
-.footer-logo {
-  font-family: var(--font-primary);
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-}
-
-.footer-logo a {
-  display: block;
-}
-
-.footer-logo img {
-  height: 40px;
-  width: auto;
-  transition: opacity 0.2s ease;
-}
-
-.footer-logo img:hover {
-  opacity: 0.8;
-}
-
-/* Responsive adjustments for footer logo */
-@media (max-width: 768px) {
+  
+  /* Footer adjustments for mobile */
   .footer-logo img {
     height: 30px;
   }

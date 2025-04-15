@@ -11,6 +11,10 @@
     <link rel="preload" href="assets/fonts/Inter-Bold.otf" as="font" type="font/otf" crossorigin>
     <link rel="preload" href="assets/fonts/HostGrotesk-Regular.ttf" as="font" type="font/truetype" crossorigin>
     <link rel="preload" href="assets/fonts/HostGrotesk-Bold.ttf" as="font" type="font/truetype" crossorigin>
+    <!-- Preload audio files -->
+    <link rel="preload" href="audio/hover.mp3" as="audio">
+    <link rel="preload" href="audio/click.mp3" as="audio">
+    <link rel="preload" href="audio/ambient.mp3" as="audio">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -22,8 +26,14 @@
 <body>
     <div class="custom-cursor"></div>
 
-    <div id="audio-toggle" class="audio-toggle">
-        <button id="toggle-audio" aria-label="Toggle audio"></button>
+    <!-- Audio controls -->
+    <div class="audio-controls">
+        <button class="audio-toggle" aria-label="Toggle audio">
+            <span class="audio-icon"></span>
+        </button>
+        <div class="volume-slider">
+            <input type="range" min="0" max="100" value="75" class="volume-range">
+        </div>
     </div>
 
     <nav>

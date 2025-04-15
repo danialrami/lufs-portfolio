@@ -1,163 +1,373 @@
-// Audio controller for LUFS Audio Portfolio Website
+/**
+ * Audio Controller for LUFS Audio Website
+ * Handles audio playback, analysis, and integration with visualizations
+ */
 
-// Audio Controller Class
 class AudioController {
   constructor() {
-    this.audioContext = null;
+    // Initialize properties
+    this.context = null;
+    this.analyser = null;
     this.gainNode = null;
-    this.audioElements = [];
+    this.sources = {};
+    this.buffers = {};
+    this.frequencyData = null;
+    this.timeData = null;
+    this.isInitialized = false;
     this.isMuted = false;
-    this.hoverSound = null;
-    this.clickSound = null;
+    this.volume = 0.75;
+    this.currentTrack = null;
+    
+    // Audio file paths
+    this.audioFiles = {
+      hover: 'audio/hover.mp3',
+      click: 'audio/click.mp3',
+      nav: 'audio/nav.mp3',
+      ambient: 'audio/ambient.mp3'
+    };
     
     // Bind methods
     this.init = this.init.bind(this);
-    this.setupAudioElement = this.setupAudioElement.bind(this);
+    this.loadAudioFiles = this.loadAudioFiles.bind(this);
+    this.loadAudioFile = this.loadAudioFile.bind(this);
+    this.playSound = this.playSound.bind(this);
+    this.stopSound = this.stopSound.bind(this);
+    this.setVolume = this.setVolume.bind(this);
     this.toggleMute = this.toggleMute.bind(this);
-    this.playHoverSound = this.playHoverSound.bind(this);
-    this.playClickSound = this.playClickSound.bind(this);
-  }
-  
-  init() {
-    // Create audio context
-    try {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      this.audioContext = new AudioContext();
-      this.gainNode = this.audioContext.createGain();
-      this.gainNode.connect(this.audioContext.destination);
-      
-      // Find all audio elements
-      const audioElements = document.querySelectorAll('audio');
-      audioElements.forEach(audio => {
-        this.setupAudioElement(audio);
-      });
-      
-      // Preload sound effects
-      this.preloadSoundEffects();
-      
-      // Setup audio toggle button
-      const toggleButton = document.getElementById('toggle-audio');
-      if (toggleButton) {
-        toggleButton.addEventListener('click', this.toggleMute);
-      }
-    } catch (e) {
-      console.error('Web Audio API is not supported in this browser', e);
+    this.setupAnalyser = this.setupAnalyser.bind(this);
+    this.getFrequencyData = this.getFrequencyData.bind(this);
+    this.getTimeData = this.getTimeData.bind(this);
+    this.getAverageVolume = this.getAverageVolume.bind(this);
+    this.setupEventListeners = this.setupEventListeners.bind(this);
+    this.handleUserInteraction = this.handleUserInteraction.bind(this);
+    this.generateFallbackData = this.generateFallbackData.bind(this);
+    
+    // Check for Web Audio API support
+    this.hasAudioSupport = this.checkAudioSupport();
+    
+    // Initialize if audio is supported
+    if (this.hasAudioSupport) {
+      // Wait for user interaction to initialize audio
+      this.setupEventListeners();
+    } else {
+      console.warn('Web Audio API not supported, using fallback data');
+      this.generateFallbackData();
     }
   }
   
-  preloadSoundEffects() {
-    // Preload hover sound
-    this.hoverSound = new Audio('audio/hover.mp3');
-    this.hoverSound.volume = 0.15; // Lower volume for subtle effect
-    this.hoverSound.load();
-    
-    // Preload click sound
-    this.clickSound = new Audio('audio/click.mp3');
-    this.clickSound.volume = 0.25;
-    this.clickSound.load();
+  // Check if Web Audio API is supported
+  checkAudioSupport() {
+    return !!(window.AudioContext || window.webkitAudioContext);
   }
   
-  setupAudioElement(audioElement) {
-    if (!this.audioContext) return;
+  // Initialize audio context and load audio files
+  init() {
+    if (this.isInitialized) return Promise.resolve();
     
-    // Create media element source
-    const source = this.audioContext.createMediaElementSource(audioElement);
-    source.connect(this.gainNode);
-    
-    // Add to tracked elements
-    this.audioElements.push({
-      element: audioElement,
-      source: source
-    });
-    
-    // Add play/pause event listeners for visualization sync
-    audioElement.addEventListener('play', () => {
-      // Resume audio context if suspended
-      if (this.audioContext.state === 'suspended') {
-        this.audioContext.resume();
-      }
+    try {
+      // Create audio context
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      this.context = new AudioContext();
       
-      // Notify visualizers if they exist
-      if (window.categoryVisualizer && typeof window.categoryVisualizer.setAudioReactive === 'function') {
-        window.categoryVisualizer.setAudioReactive(true);
-      }
-    });
-    
-    audioElement.addEventListener('pause', () => {
-      // Notify visualizers if they exist
-      if (window.categoryVisualizer && typeof window.categoryVisualizer.setAudioReactive === 'function') {
-        window.categoryVisualizer.setAudioReactive(false);
-      }
-    });
+      // Create gain node
+      this.gainNode = this.context.createGain();
+      this.gainNode.gain.value = this.volume;
+      this.gainNode.connect(this.context.destination);
+      
+      // Setup analyser
+      this.setupAnalyser();
+      
+      // Load audio files
+      return this.loadAudioFiles().then(() => {
+        this.isInitialized = true;
+        console.log('Audio controller initialized');
+        
+        // Play ambient sound
+        this.playSound('ambient', true);
+        
+        return Promise.resolve();
+      });
+    } catch (error) {
+      console.error('Error initializing audio controller:', error);
+      this.generateFallbackData();
+      return Promise.reject(error);
+    }
   }
   
+  // Load all audio files
+  loadAudioFiles() {
+    const promises = Object.entries(this.audioFiles).map(([id, path]) => {
+      return this.loadAudioFile(id, path);
+    });
+    
+    return Promise.all(promises);
+  }
+  
+  // Load a single audio file
+  loadAudioFile(id, path) {
+    return fetch(path)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Failed to load audio file: ${path}`);
+        }
+        return response.arrayBuffer();
+      })
+      .then(arrayBuffer => this.context.decodeAudioData(arrayBuffer))
+      .then(audioBuffer => {
+        this.buffers[id] = audioBuffer;
+        console.log(`Loaded audio file: ${id}`);
+      })
+      .catch(error => {
+        console.error(`Error loading audio file ${id}:`, error);
+      });
+  }
+  
+  // Play a sound
+  playSound(id, loop = false, volume = 1) {
+    if (!this.isInitialized || this.isMuted) return;
+    
+    // Check if buffer exists
+    const buffer = this.buffers[id];
+    if (!buffer) {
+      console.warn(`Audio buffer not found: ${id}`);
+      return;
+    }
+    
+    // Stop previous instance of this sound
+    this.stopSound(id);
+    
+    // Create source
+    const source = this.context.createBufferSource();
+    source.buffer = buffer;
+    source.loop = loop;
+    
+    // Create gain node for this source
+    const gainNode = this.context.createGain();
+    gainNode.gain.value = volume * this.volume;
+    
+    // Connect source to gain node, then to main gain node
+    source.connect(gainNode);
+    gainNode.connect(this.gainNode);
+    
+    // Connect to analyser if this is ambient track
+    if (id === 'ambient') {
+      gainNode.connect(this.analyser);
+      this.currentTrack = id;
+    }
+    
+    // Start playback
+    source.start(0);
+    
+    // Store source
+    this.sources[id] = {
+      source,
+      gainNode
+    };
+    
+    // Return source for further manipulation
+    return source;
+  }
+  
+  // Stop a sound
+  stopSound(id) {
+    if (!this.isInitialized) return;
+    
+    // Check if source exists
+    const sourceData = this.sources[id];
+    if (!sourceData) return;
+    
+    try {
+      // Stop source
+      sourceData.source.stop();
+    } catch (error) {
+      // Ignore errors when stopping already stopped sources
+    }
+    
+    // Remove source
+    delete this.sources[id];
+    
+    // Clear current track if this was it
+    if (this.currentTrack === id) {
+      this.currentTrack = null;
+    }
+  }
+  
+  // Set volume
+  setVolume(volume) {
+    this.volume = Math.max(0, Math.min(1, volume));
+    
+    if (this.isInitialized) {
+      // Update main gain node
+      this.gainNode.gain.value = this.isMuted ? 0 : this.volume;
+      
+      // Update individual source gain nodes
+      Object.values(this.sources).forEach(sourceData => {
+        sourceData.gainNode.gain.value = this.isMuted ? 0 : this.volume;
+      });
+    }
+  }
+  
+  // Toggle mute
   toggleMute() {
     this.isMuted = !this.isMuted;
+    this.setVolume(this.volume);
     
-    // Update gain value with smooth transition
-    if (this.gainNode) {
-      const now = this.audioContext.currentTime;
-      this.gainNode.gain.cancelScheduledValues(now);
-      this.gainNode.gain.setValueAtTime(this.gainNode.gain.value, now);
-      this.gainNode.gain.linearRampToValueAtTime(this.isMuted ? 0 : 1, now + 0.2);
+    // Update UI
+    const audioToggle = document.querySelector('.audio-toggle');
+    if (audioToggle) {
+      audioToggle.classList.toggle('muted', this.isMuted);
     }
     
-    // Update toggle button appearance
-    const toggleButton = document.getElementById('toggle-audio');
-    if (toggleButton) {
-      toggleButton.classList.toggle('muted', this.isMuted);
-    }
-    
-    // Play feedback sound
-    if (!this.isMuted) {
-      this.playClickSound();
-    }
-    
-    // Store preference in local storage
-    localStorage.setItem('lufs_audio_muted', this.isMuted ? 'true' : 'false');
+    return this.isMuted;
   }
   
-  playHoverSound() {
-    if (this.isMuted || !this.hoverSound) return;
+  // Setup analyser
+  setupAnalyser() {
+    // Create analyser
+    this.analyser = this.context.createAnalyser();
+    this.analyser.fftSize = 1024;
+    this.analyser.smoothingTimeConstant = 0.8;
     
-    // Clone the audio to allow overlapping sounds
-    const hoverSoundClone = this.hoverSound.cloneNode();
-    hoverSoundClone.volume = 0.15;
+    // Connect analyser to gain node
+    this.analyser.connect(this.gainNode);
     
-    // Play with error handling
-    hoverSoundClone.play().catch(e => {
-      console.log('Audio play prevented:', e);
+    // Create data arrays
+    this.frequencyData = new Uint8Array(this.analyser.frequencyBinCount);
+    this.timeData = new Uint8Array(this.analyser.frequencyBinCount);
+  }
+  
+  // Get frequency data
+  getFrequencyData() {
+    if (!this.isInitialized || !this.analyser) {
+      return this.fallbackFrequencyData || new Uint8Array(128).fill(0);
+    }
+    
+    this.analyser.getByteFrequencyData(this.frequencyData);
+    return this.frequencyData;
+  }
+  
+  // Get time domain data
+  getTimeData() {
+    if (!this.isInitialized || !this.analyser) {
+      return this.fallbackTimeData || new Uint8Array(128).fill(128);
+    }
+    
+    this.analyser.getByteTimeDomainData(this.timeData);
+    return this.timeData;
+  }
+  
+  // Get average volume (0-1)
+  getAverageVolume() {
+    const frequencyData = this.getFrequencyData();
+    let sum = 0;
+    
+    for (let i = 0; i < frequencyData.length; i++) {
+      sum += frequencyData[i];
+    }
+    
+    return sum / (frequencyData.length * 255);
+  }
+  
+  // Setup event listeners for user interaction
+  setupEventListeners() {
+    const handleInteraction = () => {
+      this.handleUserInteraction();
+      
+      // Remove event listeners after first interaction
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
+      document.removeEventListener('keydown', handleInteraction);
+    };
+    
+    document.addEventListener('click', handleInteraction);
+    document.addEventListener('touchstart', handleInteraction);
+    document.addEventListener('keydown', handleInteraction);
+  }
+  
+  // Handle user interaction
+  handleUserInteraction() {
+    if (!this.isInitialized) {
+      this.init().then(() => {
+        // Setup UI event listeners after initialization
+        this.setupUIEventListeners();
+      });
+    }
+  }
+  
+  // Setup UI event listeners
+  setupUIEventListeners() {
+    // Audio toggle button
+    const audioToggle = document.querySelector('.audio-toggle');
+    if (audioToggle) {
+      audioToggle.addEventListener('click', () => {
+        const isMuted = this.toggleMute();
+        audioToggle.classList.toggle('muted', isMuted);
+        this.playSound('click');
+      });
+    }
+    
+    // Volume slider
+    const volumeSlider = document.querySelector('.volume-range');
+    if (volumeSlider) {
+      volumeSlider.addEventListener('input', () => {
+        const volume = parseFloat(volumeSlider.value) / 100;
+        this.setVolume(volume);
+      });
+    }
+    
+    // Sound elements
+    document.querySelectorAll('[data-sound]').forEach(element => {
+      const soundId = element.getAttribute('data-sound');
+      
+      element.addEventListener('mouseenter', () => {
+        this.playSound(soundId);
+      });
+      
+      if (element.tagName === 'A' || element.tagName === 'BUTTON') {
+        element.addEventListener('click', () => {
+          this.playSound('click');
+        });
+      }
     });
   }
   
-  playClickSound() {
-    if (this.isMuted || !this.clickSound) return;
+  // Generate fallback data for when Web Audio API is not supported
+  generateFallbackData() {
+    // Create fallback frequency data
+    this.fallbackFrequencyData = new Uint8Array(128);
+    this.fallbackTimeData = new Uint8Array(128);
     
-    // Clone the audio to allow overlapping sounds
-    const clickSoundClone = this.clickSound.cloneNode();
-    clickSoundClone.volume = 0.25;
+    // Fill with random values
+    for (let i = 0; i < 128; i++) {
+      this.fallbackFrequencyData[i] = Math.random() * 255;
+      this.fallbackTimeData[i] = 128 + Math.random() * 128 - 64;
+    }
     
-    // Play with error handling
-    clickSoundClone.play().catch(e => {
-      console.log('Audio play prevented:', e);
-    });
-  }
-  
-  // Check if audio context is running, resume if needed
-  checkAndResumeAudioContext() {
-    if (this.audioContext && this.audioContext.state === 'suspended') {
-      this.audioContext.resume();
-    }
-  }
-  
-  // Load mute preference from local storage
-  loadMutePreference() {
-    const savedMutePreference = localStorage.getItem('lufs_audio_muted');
-    if (savedMutePreference === 'true' && !this.isMuted) {
-      this.toggleMute();
-    }
+    // Animate fallback data
+    const animateFallbackData = () => {
+      if (!this.hasAudioSupport) {
+        // Update frequency data
+        for (let i = 0; i < this.fallbackFrequencyData.length; i++) {
+          // Create a wave pattern
+          const time = Date.now() / 1000;
+          const value = Math.sin(time * 2 + i * 0.1) * 0.5 + 0.5;
+          this.fallbackFrequencyData[i] = value * 255;
+        }
+        
+        // Update time data
+        for (let i = 0; i < this.fallbackTimeData.length; i++) {
+          const time = Date.now() / 1000;
+          const value = Math.sin(time * 4 + i * 0.2);
+          this.fallbackTimeData[i] = 128 + value * 64;
+        }
+        
+        requestAnimationFrame(animateFallbackData);
+      }
+    };
+    
+    animateFallbackData();
   }
 }
 
-// Create and export audio controller
+// Initialize audio controller
 window.audioController = new AudioController();
