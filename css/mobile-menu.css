@@ -1,0 +1,203 @@
+/* Mobile Menu Styles for LUFS Audio Portfolio Website */
+
+/* Mobile navigation container */
+.mobile-nav-container {
+  display: none;
+}
+
+/* Hamburger menu button */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 30px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.menu-toggle span {
+  display: block;
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background-color: var(--color-white);
+  border-radius: 3px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out;
+}
+
+.menu-toggle span:nth-child(1) {
+  top: 0px;
+}
+
+.menu-toggle span:nth-child(2) {
+  top: 10px;
+}
+
+.menu-toggle span:nth-child(3) {
+  top: 20px;
+}
+
+/* Hamburger menu animation when active */
+.menu-toggle.active span:nth-child(1) {
+  top: 10px;
+  transform: rotate(135deg);
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+  left: -60px;
+}
+
+.menu-toggle.active span:nth-child(3) {
+  top: 10px;
+  transform: rotate(-135deg);
+}
+
+/* Mobile menu overlay */
+.main-nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(17, 17, 17, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.main-nav.active {
+  right: 0;
+}
+
+.main-nav ul {
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+.main-nav li {
+  margin: 15px 0;
+}
+
+.nav-link {
+  font-size: 1.5rem;
+  padding: 10px;
+  display: inline-block;
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-teal);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-link.active {
+  color: var(--color-teal);
+}
+
+/* Media queries for mobile menu */
+@media (max-width: 768px) {
+  nav ul {
+    display: none;
+  }
+  
+  .menu-toggle {
+    display: block;
+  }
+  
+  .mobile-nav-container {
+    display: block;
+  }
+  
+  /* Touch device optimizations */
+  .nav-link {
+    padding: 12px;
+    min-height: 44px; /* Minimum touch target size */
+  }
+  
+  /* iPhone notch/dynamic island fix */
+  @supports (padding-top: env(safe-area-inset-top)) {
+    .main-nav.active {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-width: 767px) and (orientation: landscape) {
+  .main-nav ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  .main-nav li {
+    margin: 5px;
+  }
+}
+
+/* Media player styling */
+.audio-player {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  background-color: rgba(17, 17, 17, 0.8);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.audio-player audio {
+  width: 100%;
+  height: 40px;
+  outline: none;
+}
+
+/* Audio player controls styling */
+audio::-webkit-media-controls-panel {
+  background-color: var(--color-medium-gray);
+}
+
+audio::-webkit-media-controls-play-button {
+  background-color: var(--color-teal);
+  border-radius: 50%;
+}
+
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+  color: var(--color-white);
+}
+
+/* Adjust for touch devices */
+@media (hover: none) {
+  .audio-player {
+    padding: 15px;
+  }
+  
+  audio::-webkit-media-controls-panel {
+    height: 50px;
+  }
+}

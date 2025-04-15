@@ -1,113 +1,87 @@
-# LUFS Audio Portfolio Website
+# LUFS Portfolio Website
 
-A professional portfolio website for LUFS Audio, showcasing sound design, music composition, and technical audio projects with interactive elements and audio feedback.
+This is the portfolio website for LUFS Audio, showcasing sound design, music composition, and technical audio work.
 
-## Overview
+## Latest Updates
 
-This portfolio website was created for Daniel Ramirez's sound design business, LUFS Audio. The site features:
+The website has been updated with the following improvements:
 
-- A striking landing page with three distinct, visually engaging, and interactive sections
-- Dedicated pages for Sound Design, Music Composition, and Technical Audio categories
-- A modular project template system for easy content updates
-- Three.js visualizations that respond to user interaction and audio
-- Audio feedback for interactive elements with toggle option
-- Fully responsive design for all devices
+1. **Mobile Responsiveness**
+   - Implemented a hamburger menu that slides from the right side with teal underlines
+   - Created a fully responsive layout that works across all device sizes
+   - Ensured proper scaling of content and elements
 
-## Technologies Used
+2. **Background Visualization**
+   - Added a subtle grayscale particle-network background behind all content
+   - Based on the main lufs.audio site's visualizer but with reduced saturation
+   - Optimized for performance with reduced particle count and frame rate limiting
 
-- HTML5, CSS3, and Vanilla JavaScript (no frameworks)
-- Three.js for interactive visualizations
-- Web Audio API for audio processing and visualization
-- Responsive design with mobile-first approach
+3. **Section Header Animations**
+   - Extended the homepage animations to category headers
+   - Ensured animations span the full width of the window
+   - Maintained original colors and animation styles
 
-## Project Structure
+4. **Media Player Styling**
+   - Styled the media players with a cleaner, more consistent look
+   - Commented out case study link buttons as requested
+
+5. **Performance Optimization**
+   - Reduced particle and line count for better performance
+   - Implemented frame rate limiting to reduce CPU/GPU usage
+   - Added visibility detection to pause animations when not visible
+   - Proper cleanup of event listeners and WebGL contexts
+
+## File Structure
 
 ```
-portfolio-website/
-├── index.html                  # Main landing page
-├── sound-design.html           # Sound Design category page
-├── music-composition.html      # Music Composition category page
-├── technical-audio.html        # Technical Audio category page
-├── case-study-template.html    # Template for case studies
-├── project-template.html       # Template for adding new projects
-├── css/
-│   ├── styles.css              # Main stylesheet
-│   ├── portfolio.css           # Styles for portfolio pages
-│   └── responsive.css          # Responsive design styles
-├── js/
-│   ├── main.js                 # Main JavaScript functionality
-│   ├── audio-controller.js     # Audio playback and control
-│   ├── audio-feedback.js       # Interactive sound effects
-│   ├── three-background.js     # Three.js background animation
-│   └── category-visualizations.js # Category-specific visualizations
-├── audio/
-│   ├── hover.mp3               # UI interaction sounds
-│   ├── click.mp3               # UI interaction sounds
-│   ├── background-ambience.mp3 # Background audio
-│   └── placeholder-*.mp3       # Placeholder audio files for projects
-├── images/
-│   └── placeholder-*.jpg       # Placeholder images for projects
-└── assets/
-    ├── lufs-logo.svg           # LUFS Audio logo
-    ├── audio-on.svg            # Audio control icons
-    ├── audio-off.svg           # Audio control icons
-    └── lufs-squares-*.svg      # Brand assets
+lufs-portfolio/
+├── assets/           # Images, logos, and other static assets
+│   └── fonts/        # Font files (Host Grotesk and Inter)
+├── audio/            # Audio files for the portfolio
+├── css/              # Stylesheets
+│   ├── cursor.css             # Custom cursor styles
+│   ├── font-implementation.css # Font face declarations
+│   ├── header-styles.css      # Styles for category headers
+│   ├── logo-fix.css           # Logo positioning fixes
+│   ├── media-player.css       # Styles for audio players
+│   ├── mobile-menu.css        # Mobile menu styles
+│   ├── portfolio.css          # Portfolio-specific styles
+│   ├── responsive.css         # Responsive design styles
+│   ├── section-fixes.css      # Section layout fixes
+│   └── styles.css             # Main stylesheet
+├── images/           # Project images
+├── js/               # JavaScript files
+│   ├── audio-controller.js       # Audio playback control
+│   ├── background-visualizer.js  # Grayscale background visualization
+│   ├── category-visualizations.js # Homepage section visualizations
+│   ├── cursor.js                 # Custom cursor functionality
+│   ├── header-visualizations.js  # Category header visualizations
+│   ├── main.js                   # Main JavaScript functionality
+│   └── mobile-menu.js            # Mobile menu functionality
+├── index.html        # Homepage
+├── sound-design.html # Sound Design category page
+├── music-composition.html # Music Composition category page
+├── technical-audio.html # Technical Audio category page
+└── README.md         # This documentation file
 ```
 
-## Features
+## Implementation Details
 
-### Interactive Landing Page
+### Background Visualization
 
-The landing page features three distinct sections for Sound Design, Music Composition, and Technical Audio, each with:
-- Custom Three.js visualizations that respond to user interaction
-- Hover and click effects with audio feedback
-- Smooth transitions between sections
+The background visualization is implemented in `background-visualizer.js`. It creates a subtle grayscale particle network similar to the main lufs.audio site but with reduced saturation to avoid distracting from the foreground content. The visualization is rendered on a canvas with z-index -1 to ensure it appears behind all other content.
 
-### Audio Integration
+### Header Visualizations
 
-- Background ambient audio that can be toggled on/off
-- Audio feedback for user interactions (hover, click)
-- Category-specific audio for each section
-- Audio players for portfolio projects
+The category header visualizations are implemented in `header-visualizations.js`. This script creates Three.js scenes for each category header that match the visualizations on the homepage. The visualizations extend to the full width of the window and maintain the original colors and animation styles.
 
-### Responsive Design
+### Mobile Menu
 
-- Mobile-first approach ensuring compatibility across all devices
-- Adaptive layouts for different screen sizes
-- Touch-optimized interactions for mobile devices
-- Reduced motion option for accessibility
+The mobile menu is implemented in `mobile-menu.js` and styled in `mobile-menu.css`. It slides in from the right side of the screen and uses teal underlines instead of bullet points for menu items, matching the style of the main lufs.audio site.
 
-### Three.js Visualizations
+### Media Players
 
-- Background particle system with network-inspired design
-- Sound Design section: Waveform visualization
-- Music Composition section: Particle system visualization
-- Technical Audio section: Network/circuit visualization
-- Audio reactivity that responds to sound playback
-
-## How to Use
-
-### Adding New Projects
-
-1. Duplicate the `project-template.html` file
-2. Update the project title, description, tags, and links
-3. Add project images to the `images/` directory
-4. Add project audio to the `audio/` directory
-5. Link the new project from the appropriate category page
-
-### Creating Case Studies
-
-1. Duplicate the `case-study-template.html` file
-2. Fill in all sections: Overview, Challenge, Approach, Implementation, Results, Reflections
-3. Add case study images to the `images/` directory
-4. Add case study audio to the `audio/` directory
-5. Link the case study from the project card
-
-### Customizing Visualizations
-
-The Three.js visualizations can be customized in the following files:
-- `js/three-background.js` - Main background visualization
-- `js/category-visualizations.js` - Category-specific visualizations
+The media players are styled in `media-player.css`. The case study link buttons have been commented out as requested.
 
 ## Browser Compatibility
 
@@ -116,22 +90,28 @@ The website has been tested and is compatible with:
 - Firefox (latest)
 - Safari (latest)
 - Edge (latest)
-- Mobile browsers (iOS Safari, Android Chrome)
+- Mobile browsers (iOS Safari, Chrome for Android)
 
 ## Performance Considerations
 
-- Three.js visualizations are optimized for performance
-- Audio files are compressed for faster loading
-- Responsive images for different device sizes
-- Loading screen to ensure all assets are loaded before display
+Several optimizations have been implemented to improve performance:
 
-## Credits
+1. **Reduced Particle Count**: The background visualization uses fewer particles on mobile and low-end devices.
+2. **Frame Rate Limiting**: Animations are limited to 30 FPS to reduce CPU/GPU usage.
+3. **Visibility Detection**: Animations pause when not visible in the viewport.
+4. **Event Listener Cleanup**: All event listeners are properly removed when components are destroyed.
+5. **WebGL Context Management**: WebGL contexts are properly managed to prevent memory leaks.
+6. **Asset Preloading**: Critical assets are preloaded to improve initial load time.
 
-- Design and Development: Based on the LUFS Audio brand guidelines
-- Three.js: https://threejs.org/
-- Audio Processing: Web Audio API
-- Fonts: Helvetica Neue
+## Installation
 
-## License
+To use this code as a drop-in replacement:
 
-All rights reserved. This project is proprietary and confidential.
+1. Back up your existing files if needed
+2. Copy all files from this package to your web server or hosting environment
+3. Ensure all file paths are correct for your environment
+4. Test the website to ensure everything is working correctly
+
+## Live Demo
+
+A live demo of the updated website is available at: https://yrmtmtbi.manus.space

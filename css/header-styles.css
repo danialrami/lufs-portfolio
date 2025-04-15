@@ -1,0 +1,91 @@
+/* Category header styles for full-width animations */
+
+.category-header {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.category-header-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  background-color: rgba(17, 17, 17, 0.7);
+  border-radius: 4px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.header-visualization {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: transparent !important; /* Force transparency */
+}
+
+/* Sound Design Header */
+.sound-design-header {
+  color: var(--color-white);
+  background-color: transparent !important;
+}
+
+/* Music Composition Header */
+.music-composition-header {
+  color: var(--color-white);
+  background-color: transparent !important;
+}
+
+/* Technical Audio Header */
+.technical-audio-header {
+  color: var(--color-white);
+  background-color: transparent !important;
+}
+
+/* Additional selectors to ensure transparency */
+.banner, 
+.header-type-2.slider-overlap .header,
+.music-composition-banner,
+.sound-design-banner,
+.technical-audio-banner {
+  background-color: transparent !important;
+}
+
+/* Ensure Three.js canvas backgrounds are transparent */
+canvas.visualization-canvas {
+  background-color: transparent !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .category-header {
+    height: 250px;
+  }
+  
+  .category-header-content {
+    padding: 1.5rem;
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-header {
+    height: 200px;
+  }
+  
+  .category-header-content {
+    padding: 1rem;
+    width: 95%;
+  }
+  
+  .category-header h1 {
+    font-size: 1.75rem;
+  }
+}

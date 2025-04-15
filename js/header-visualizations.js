@@ -1,9 +1,9 @@
-// Three.js category visualizations with full-width support
-// This file handles the visualizations for each category section
+// Header visualizations for category pages
+// This extends the same animations from the homepage to the category headers
 
-class CategoryVisualization {
-  constructor(containerId, type) {
-    this.container = document.getElementById(containerId);
+class HeaderVisualization {
+  constructor(headerSelector, type) {
+    this.container = document.querySelector(headerSelector);
     this.type = type; // 'sound', 'music', or 'technical'
     
     this.scene = null;
@@ -19,9 +19,6 @@ class CategoryVisualization {
     this.lastFrameTime = 0;
     this.frameRateLimit = window.matchMedia('(max-width: 768px)').matches ? 30 : 60;
     this.frameInterval = 1000 / this.frameRateLimit;
-    
-    // Check if we're on a category page or home page
-    this.isCategoryPage = document.querySelector('.category-header') !== null;
     
     // Original vibrant colors
     this.colors = {
@@ -45,19 +42,34 @@ class CategoryVisualization {
   init() {
     if (!this.container) return;
     
+    // Create visualization container if it doesn't exist
+    let visualizationContainer = this.container.querySelector('.header-visualization');
+    if (!visualizationContainer) {
+      visualizationContainer = document.createElement('div');
+      visualizationContainer.className = 'header-visualization';
+      visualizationContainer.style.position = 'absolute';
+      visualizationContainer.style.top = '0';
+      visualizationContainer.style.left = '0';
+      visualizationContainer.style.width = '100%';
+      visualizationContainer.style.height = '100%';
+      visualizationContainer.style.zIndex = '0';
+      visualizationContainer.style.overflow = 'hidden';
+      this.container.style.position = 'relative';
+      this.container.insertBefore(visualizationContainer, this.container.firstChild);
+    }
+    
+    this.visualizationContainer = visualizationContainer;
+    
     // Create scene
     this.scene = new THREE.Scene();
     
     // Create camera
-    const width = this.container.clientWidth;
-    const height = this.container.clientHeight;
+    const width = this.visualizationContainer.clientWidth;
+    const height = this.visualizationContainer.clientHeight;
     
-    // Use wider field of view for category pages
-    const fov = this.isCategoryPage ? 90 : 75;
-    this.camera = new THREE.PerspectiveCamera(fov, width / height, 0.1, 1000);
-    
-    // Position camera further back for category pages
-    this.camera.position.z = this.isCategoryPage ? 8 : 5;
+    // Use wider field of view for more expansive visualizations
+    this.camera = new THREE.PerspectiveCamera(90, width / height, 0.1, 1000);
+    this.camera.position.z = 8;
     
     // Create renderer
     this.renderer = new THREE.WebGLRenderer({ 
@@ -67,13 +79,13 @@ class CategoryVisualization {
     
     this.renderer.setSize(width, height);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
-    this.container.appendChild(this.renderer.domElement);
+    this.visualizationContainer.appendChild(this.renderer.domElement);
     
     // Create visualization based on type
     this.createVisualization();
     
     // Add event listeners with passive option for better performance
-    this.container.addEventListener('mousemove', this.onContainerMouseMove, { passive: true });
+    this.visualizationContainer.addEventListener('mousemove', this.onContainerMouseMove, { passive: true });
     window.addEventListener('resize', this.onContainerResize, { passive: true });
     document.addEventListener('visibilitychange', this.handleVisibilityChange);
     window.addEventListener('scroll', this.checkVisibility, { passive: true });
@@ -87,9 +99,9 @@ class CategoryVisualization {
   
   checkVisibility() {
     // Only render when in viewport for better performance
-    if (!this.container) return;
+    if (!this.visualizationContainer) return;
     
-    const rect = this.container.getBoundingClientRect();
+    const rect = this.visualizationContainer.getBoundingClientRect();
     const isInViewport = (
       rect.top < window.innerHeight &&
       rect.bottom > 0 &&
@@ -121,60 +133,40 @@ class CategoryVisualization {
   createVisualization() {
     switch (this.type) {
       case 'sound':
-        // For category pages, use the full width version
-        if (this.isCategoryPage) {
-          this.createFullWidthSoundVisualization();
-        } else {
-          // For homepage, use the current version
-          this.createSoundVisualization();
-        }
+        this.createSoundHeaderVisualization();
         break;
-        
       case 'music':
-        // For category pages, use the full width version
-        if (this.isCategoryPage) {
-          this.createFullWidthMusicVisualization();
-        } else {
-          // For homepage, use the current version
-          this.createMusicVisualization();
-        }
+        this.createMusicHeaderVisualization();
         break;
-        
-      // Technical Audio already appears to be using full width
       case 'technical':
-        if (this.isCategoryPage) {
-          this.createFullWidthTechnicalVisualization();
-        } else {
-          this.createTechnicalVisualization();
-        }
+        this.createTechnicalHeaderVisualization();
         break;
-        
       default:
         this.createDefaultVisualization();
     }
   }
   
-  // Standard visualizations for homepage
-
-  createSoundVisualization() {
-    // Create a group of cubes for sound design
+  createSoundHeaderVisualization() {
+    // Create a full-width group of cubes for the sound design header
     const group = new THREE.Group();
-    const cubeCount = 20;
+    const cubeCount = 30; // More cubes for better distribution
     const color = this.colors.sound;
     
     for (let i = 0; i < cubeCount; i++) {
-      const size = Math.random() * 0.3 + 0.1;
+      const size = Math.random() * 0.5 + 0.1;
       const geometry = new THREE.BoxGeometry(size, size, size);
       const material = new THREE.MeshBasicMaterial({
         color: color,
         transparent: true,
-        opacity: Math.random() * 0.5 + 0.25
+        opacity: Math.random() * 0.6 + 0.2
       });
       
       const cube = new THREE.Mesh(geometry, material);
-      cube.position.x = (Math.random() - 0.5) * 5;
-      cube.position.y = (Math.random() - 0.5) * 5;
-      cube.position.z = (Math.random() - 0.5) * 5;
+      
+      // Distribute across full width
+      cube.position.x = (Math.random() - 0.5) * 25;
+      cube.position.y = (Math.random() - 0.5) * 15;
+      cube.position.z = (Math.random() - 0.5) * 10;
       cube.rotation.x = Math.random() * Math.PI;
       cube.rotation.y = Math.random() * Math.PI;
       
@@ -190,22 +182,22 @@ class CategoryVisualization {
     this.mesh = group;
   }
   
-  createMusicVisualization() {
-    // Create a wave pattern for music composition
-    const waveCount = 5;
+  createMusicHeaderVisualization() {
+    // Create a full-width wave pattern for music composition header
+    const waveCount = 10;
     const group = new THREE.Group();
     const color = this.colors.music;
     
     for (let w = 0; w < waveCount; w++) {
       const points = [];
-      const segments = 50;
-      const amplitude = 0.5 - (w * 0.1);
-      const yOffset = (w - waveCount/2) * 0.5;
+      const segments = 80;
+      const amplitude = 0.7 - (w * 0.05);
+      const yOffset = (w - waveCount/2) * 1.0;
       
       for (let i = 0; i <= segments; i++) {
-        const x = (i / segments) * 10 - 5;
-        const y = Math.sin(i * 0.2) * amplitude + yOffset;
-        const z = 0;
+        const x = (i / segments) * 35 - 17.5; // Wider range for full width
+        const y = Math.sin(i * 0.15) * amplitude + yOffset;
+        const z = (Math.random() - 0.5) * 5;
         points.push(new THREE.Vector3(x, y, z));
       }
       
@@ -213,7 +205,7 @@ class CategoryVisualization {
       const material = new THREE.LineBasicMaterial({
         color: color,
         transparent: true,
-        opacity: 0.7 - (w * 0.1)
+        opacity: 0.9 - (w * 0.08)
       });
       
       const wave = new THREE.Line(geometry, material);
@@ -227,129 +219,17 @@ class CategoryVisualization {
     this.mesh = group;
   }
   
-  createTechnicalVisualization() {
-    // Create a particle system for technical audio
-    const particleCount = 100;
+  createTechnicalHeaderVisualization() {
+    // Create a full-width particle system for technical audio header
+    const particleCount = 200;
     const geometry = new THREE.BufferGeometry();
     const vertices = [];
     const sizes = [];
     const color = this.colors.technical;
     
     for (let i = 0; i < particleCount; i++) {
-      const x = (Math.random() - 0.5) * 10;
-      const y = (Math.random() - 0.5) * 10;
-      const z = (Math.random() - 0.5) * 10;
-      vertices.push(x, y, z);
-      
-      sizes.push(Math.random() * 0.1 + 0.05);
-    }
-    
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-    geometry.setAttribute('size', new THREE.Float32BufferAttribute(sizes, 1));
-    
-    const material = new THREE.PointsMaterial({
-      color: color,
-      transparent: true,
-      opacity: 0.7,
-      size: 0.1,
-      sizeAttenuation: true
-    });
-    
-    const particles = new THREE.Points(geometry, material);
-    
-    // Store original positions for animation
-    particles.userData.originalVertices = vertices.slice();
-    
-    this.scene.add(particles);
-    this.mesh = particles;
-  }
-  
-  // Full-width visualizations for category pages
-  
-  createFullWidthSoundVisualization() {
-    // Create a group of cubes for sound design - optimized for full width
-    const group = new THREE.Group();
-    const cubeCount = 35; // More cubes for better distribution
-    const color = this.colors.sound;
-    
-    for (let i = 0; i < cubeCount; i++) {
-      const size = Math.random() * 0.4 + 0.1;
-      const geometry = new THREE.BoxGeometry(size, size, size);
-      const material = new THREE.MeshBasicMaterial({
-        color: color,
-        transparent: true,
-        opacity: Math.random() * 0.5 + 0.25
-      });
-      
-      const cube = new THREE.Mesh(geometry, material);
-      
-      // Distribute across full width - use a wider range
-      cube.position.x = (Math.random() - 0.5) * 20; // Wider x-distribution
-      cube.position.y = (Math.random() - 0.5) * 10; // Wider y-distribution
-      cube.position.z = (Math.random() - 0.5) * 8;
-      cube.rotation.x = Math.random() * Math.PI;
-      cube.rotation.y = Math.random() * Math.PI;
-      
-      // Store original position for animation
-      cube.userData.originalPosition = cube.position.clone();
-      cube.userData.animationOffset = Math.random() * Math.PI * 2;
-      cube.userData.animationSpeed = Math.random() * 0.01 + 0.005;
-      
-      group.add(cube);
-    }
-    
-    this.scene.add(group);
-    this.mesh = group;
-  }
-  
-  createFullWidthMusicVisualization() {
-    // Create a wave pattern for music composition - optimized for full width
-    const waveCount = 8; // More waves for wider distribution
-    const group = new THREE.Group();
-    const color = this.colors.music;
-    
-    for (let w = 0; w < waveCount; w++) {
-      const points = [];
-      const segments = 70; // More segments for smoother waves
-      const amplitude = 0.6 - (w * 0.06);
-      const yOffset = (w - waveCount/2) * 0.8;
-      
-      for (let i = 0; i <= segments; i++) {
-        const x = (i / segments) * 25 - 12.5; // Wider range
-        const y = Math.sin(i * 0.2) * amplitude + yOffset;
-        const z = (Math.random() - 0.5) * 3; // Add some depth
-        points.push(new THREE.Vector3(x, y, z));
-      }
-      
-      const geometry = new THREE.BufferGeometry().setFromPoints(points);
-      const material = new THREE.LineBasicMaterial({
-        color: color,
-        transparent: true,
-        opacity: 0.8 - (w * 0.08)
-      });
-      
-      const wave = new THREE.Line(geometry, material);
-      wave.userData.originalPoints = points.map(p => p.clone());
-      wave.userData.animationOffset = w * Math.PI / waveCount;
-      
-      group.add(wave);
-    }
-    
-    this.scene.add(group);
-    this.mesh = group;
-  }
-  
-  createFullWidthTechnicalVisualization() {
-    // Create a more spread out particle system for technical audio
-    const particleCount = 150; // More particles for full width
-    const geometry = new THREE.BufferGeometry();
-    const vertices = [];
-    const sizes = [];
-    const color = this.colors.technical;
-    
-    for (let i = 0; i < particleCount; i++) {
-      const x = (Math.random() - 0.5) * 25; // Wider x-distribution
-      const y = (Math.random() - 0.5) * 15; // Wider y-distribution
+      const x = (Math.random() - 0.5) * 35; // Wider range for full width
+      const y = (Math.random() - 0.5) * 20;
       const z = (Math.random() - 0.5) * 15;
       vertices.push(x, y, z);
       
@@ -363,7 +243,7 @@ class CategoryVisualization {
       color: color,
       transparent: true,
       opacity: 0.7,
-      size: 0.15,
+      size: 0.2,
       sizeAttenuation: true
     });
     
@@ -391,18 +271,18 @@ class CategoryVisualization {
   }
   
   onContainerMouseMove(event) {
-    if (!this.container) return;
+    if (!this.visualizationContainer) return;
     
-    const rect = this.container.getBoundingClientRect();
-    this.mouseX = ((event.clientX - rect.left) / this.container.clientWidth) * 2 - 1;
-    this.mouseY = -((event.clientY - rect.top) / this.container.clientHeight) * 2 + 1;
+    const rect = this.visualizationContainer.getBoundingClientRect();
+    this.mouseX = ((event.clientX - rect.left) / this.visualizationContainer.clientWidth) * 2 - 1;
+    this.mouseY = -((event.clientY - rect.top) / this.visualizationContainer.clientHeight) * 2 + 1;
   }
   
   onContainerResize() {
-    if (!this.container) return;
+    if (!this.visualizationContainer || !this.camera || !this.renderer) return;
     
-    const width = this.container.clientWidth;
-    const height = this.container.clientHeight;
+    const width = this.visualizationContainer.clientWidth;
+    const height = this.visualizationContainer.clientHeight;
     
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
@@ -502,9 +382,9 @@ class CategoryVisualization {
   
   cleanup() {
     // Proper cleanup to prevent memory leaks
-    if (!this.container) return;
+    if (!this.visualizationContainer) return;
     
-    this.container.removeEventListener('mousemove', this.onContainerMouseMove);
+    this.visualizationContainer.removeEventListener('mousemove', this.onContainerMouseMove);
     window.removeEventListener('resize', this.onContainerResize);
     document.removeEventListener('visibilitychange', this.handleVisibilityChange);
     window.removeEventListener('scroll', this.checkVisibility);
@@ -554,25 +434,25 @@ class CategoryVisualization {
   }
 }
 
-// Initialize category visualizations when DOM is loaded
+// Initialize header visualizations when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-  // Initialize category visualizations
-  const soundViz = document.getElementById('sound-design-visualization');
-  const musicViz = document.getElementById('music-composition-visualization');
-  const technicalViz = document.getElementById('technical-audio-visualization');
+  // Check if we're on a category page
+  const soundHeader = document.querySelector('.sound-design-header');
+  const musicHeader = document.querySelector('.music-composition-header');
+  const technicalHeader = document.querySelector('.technical-audio-header');
   
-  if (soundViz) {
-    const soundVisualization = new CategoryVisualization('sound-design-visualization', 'sound');
+  if (soundHeader) {
+    const soundVisualization = new HeaderVisualization('.sound-design-header', 'sound');
     soundVisualization.init();
   }
   
-  if (musicViz) {
-    const musicVisualization = new CategoryVisualization('music-composition-visualization', 'music');
+  if (musicHeader) {
+    const musicVisualization = new HeaderVisualization('.music-composition-header', 'music');
     musicVisualization.init();
   }
   
-  if (technicalViz) {
-    const technicalVisualization = new CategoryVisualization('technical-audio-visualization', 'technical');
+  if (technicalHeader) {
+    const technicalVisualization = new HeaderVisualization('.technical-audio-header', 'technical');
     technicalVisualization.init();
   }
   

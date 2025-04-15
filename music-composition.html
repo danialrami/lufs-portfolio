@@ -21,9 +21,13 @@
     <link rel="stylesheet" href="css/cursor.css">
     <link rel="stylesheet" href="css/logo-fix.css">
     <link rel="stylesheet" href="css/section-fixes.css">
+    <link rel="stylesheet" href="css/mobile-menu.css">
+    <link rel="stylesheet" href="css/font-implementation.css">
+    <link rel="stylesheet" href="css/media-player.css">
+    <link rel="stylesheet" href="css/header-styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body>
+<body class="category-page">
     <div class="custom-cursor"></div>
 
     <!-- Audio controls -->
@@ -50,38 +54,41 @@
         </ul>
     </nav>
 
-    <header class="category-header">
-        <div class="category-header-content">
-            <h1>Music Composition</h1>
-            <p>la la la, beautiful beautiful</p>
-        </div>
-        <div id="category-visualization" class="category-visualization"></div>
-    </header>
+    <main>
+        <!-- Category Header -->
+        <section class="category-header music-composition-header">
+            <div class="category-header-content">
+                <h1>Music Composition</h1>
+                <p>la la la, beautiful beautiful</p>
+            </div>
+        </section>
 
-    <main class="portfolio-content">
-        <section class="projects">
+        <!-- Portfolio Projects -->
+        <section id="portfolio-projects">
             <!-- Project 1 -->
             <div class="project-card">
                 <div class="project-media">
                     <div class="project-image">
-                        <img src="images/placeholder-music-1.jpg" alt="Film Score">
+                        <img src="images/placeholder-music-1.jpg" alt="Ambient Soundtrack">
                     </div>
                     <div class="audio-player">
                         <audio controls>
-                            <source src="audio/placeholder-music-1.mp3" type="audio/mpeg">
+                            <source src="audio/placeholder-music.mp3" type="audio/mpeg">
                             Your browser does not support the audio element.
                         </audio>
                     </div>
                 </div>
                 <div class="project-info">
-                    <h2>Hypothetical Film Score</h2>
+                    <h2>Example: Ambient Soundtrack</h2>
                     <div class="project-tags">
-                        <span class="tag">Dramatic</span>
-                        <span class="tag">Strings</span>
-                        <span class="tag">So Many Cellos</span>
+                        <span class="tag">Ambient</span>
+                        <span class="tag">Electronic</span>
+                        <span class="tag">Atmospheric</span>
                     </div>
-                    <p>Imagine I wrote music for an award-winning film about a librarian who secretly trains squirrels to shelve books. The emotional climax where the protagonist realizes the squirrels have unionized? My soaring string arrangement had test audiences in tears. The director probably said something like "genius" or "transcendent."</p>
-                    <p class="demo-note">Sample text until real projects appear here. Imagine beautiful music.</p>
+                    <p>Imagine I composed a hauntingly beautiful ambient soundtrack for a documentary about deep sea creatures. The music would perfectly capture the mysterious, otherworldly quality of these bioluminescent organisms drifting through the darkness.</p>
+                    <p>This is where I'd put real portfolio work. Soon!</p>
+                    <!-- Case study link commented out as requested -->
+                    <!-- <a href="#" class="project-link">View Case Study</a> -->
                 </div>
             </div>
 
@@ -93,45 +100,22 @@
                     </div>
                     <div class="audio-player">
                         <audio controls>
-                            <source src="audio/placeholder-music-2.mp3" type="audio/mpeg">
+                            <source src="audio/placeholder-music.mp3" type="audio/mpeg">
                             Your browser does not support the audio element.
                         </audio>
                     </div>
                 </div>
                 <div class="project-info">
-                    <h2>Made-Up Game Soundtrack</h2>
+                    <h2>Example: Game Soundtrack</h2>
                     <div class="project-tags">
-                        <span class="tag">8-bit Adjacent</span>
-                        <span class="tag">Procedural</span>
-                        <span class="tag">Loop-tastic</span>
+                        <span class="tag">Orchestral</span>
+                        <span class="tag">Dynamic</span>
+                        <span class="tag">Emotional</span>
                     </div>
-                    <p>Let's pretend I composed adaptive music for a roguelike game about competitive gardening. The bass intensifies when rival gardeners approach your prized tomatoes. The peaceful watering theme gradually morphs into tension when aphids appear. *chef's kiss*</p>
-                    <p class="demo-note">This would be a real project if it existed, which it does not.</p>
-                </div>
-            </div>
-
-            <!-- Project 3 -->
-            <div class="project-card">
-                <div class="project-media">
-                    <div class="project-image">
-                        <img src="images/placeholder-music-3.jpg" alt="Commercial Jingle">
-                    </div>
-                    <div class="audio-player">
-                        <audio controls>
-                            <source src="audio/placeholder-music-3.mp3" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <h2>Imaginary Commercial Jingle</h2>
-                    <div class="project-tags">
-                        <span class="tag">Catchy</span>
-                        <span class="tag">30-Seconds</span>
-                        <span class="tag">Gets Stuck In Head</span>
-                    </div>
-                    <p>I allegedly created a jingle for a fictional pet food brand that was so catchy, people reported their cats dancing to it. The marketing team said engagement went up 500% and sales quadrupled, but that's probably an exaggeration. The key change at the 15-second mark? Pure gold.</p>
-                    <p class="demo-note">Someday real music will live here. For now, just hum something nice.</p>
+                    <p>Let's say I created an adaptive soundtrack for an indie game that seamlessly transitions between peaceful exploration and intense combat. The main theme would be so catchy that players would find themselves humming it while doing the dishes.</p>
+                    <p>Pretend this is impressive work I've actually done. Look how professional!</p>
+                    <!-- Case study link commented out as requested -->
+                    <!-- <a href="#" class="project-link">View Case Study</a> -->
                 </div>
             </div>
         </section>
@@ -154,10 +138,12 @@
     </footer>
 
     <canvas id="background-canvas"></canvas>
-    
     <script src="js/audio-controller.js"></script>
-    <script src="js/three-background.js"></script>
+    <script src="js/background-visualizer.js"></script>
+    <script src="js/category-visualizations.js"></script>
+    <script src="js/header-visualizations.js"></script>
     <script src="js/cursor.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/mobile-menu.js"></script>
 </body>
 </html>
