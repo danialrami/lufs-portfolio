@@ -26,6 +26,11 @@
     <link rel="stylesheet" href="css/media-player.css">
     <link rel="stylesheet" href="css/header-styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Add Open Graph metadata for better social sharing -->
+    <meta property="og:title" content="LUFS Audio | Sound Design Portfolio">
+    <meta property="og:description" content="Sound design portfolio showcasing work for Hinge Health, game audio, and more.">
+    <meta property="og:image" content="assets/portfolio-thumbnail.png">
+    <meta property="og:url" content="https://lufs.audio/sound-design.html">
 </head>
 <body class="category-page">
     <div class="custom-cursor"></div>
@@ -65,30 +70,28 @@
 
         <!-- Portfolio Projects -->
         <section id="portfolio-projects">
-            <!-- Project 1 -->
+            <!-- Project 1 with Video Player -->
             <div class="project-card">
                 <div class="project-media">
-                    <div class="project-image">
-                        <img src="images/placeholder-sound-design-1.jpg" alt="Mobile App Sounds">
-                    </div>
-                    <div class="audio-player">
-                        <audio controls>
-                            <source src="audio/placeholder-sound.mp3" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
+                    <!-- Direct Google Drive embed without additional container -->
+                    <iframe src="https://drive.google.com/file/d/1sovs-KfCexv2uDqsgwpGsKRSryqXchPy/preview" 
+                            width="100%" 
+                            height="100%" 
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; pointer-events: auto;" 
+                            allow="autoplay" 
+                            allowfullscreen></iframe>
+                    <!-- Overlay div to maintain custom cursor -->
+                    <div class="iframe-cursor-overlay"></div>
                 </div>
                 <div class="project-info">
-                    <h2>Example: Totally Made-Up Mobile App Sounds</h2>
+                    <h2>Perifit x Hinge Health</h2>
                     <div class="project-tags">
-                        <span class="tag">Beeps</span>
-                        <span class="tag">Boops</span>
-                        <span class="tag">Swooshes</span>
+                        <span class="tag">UX</span>
+                        <span class="tag">Gameplay</span>
+                        <span class="tag">End-to-end</span>
                     </div>
-                    <p>Imagine I created the most amazing suite of UI sounds you've ever heard for an app that doesn't exist. Users would tap buttons and gasp with delight at my perfectly crafted 'click' sound that somehow communicates both "success" and "you have excellent taste in apps."</p>
-                    <p class="demo-note">This is where I'd put real portfolio work. Soon!</p>
-                    <!-- Case study link commented out as requested -->
-                    <!-- <a href="#" class="project-link">View Case Study</a> -->
+                    <p>I worked with <a href="https://www.hingehealth.com/resources/press-releases/hinge-health-continues-to-advance-womens-pelvic-care-with-breathing-guidance/" target="_blank">Hinge Health's Women's Pelvic Health team</a> to create a unique exercise guidance experience with Perifit's software-connected biofeedback training device.</p>
+                    <p class="demo-note">SFX and music made with Logic. Implemented with React Native, and later ported to Unity</p>
                 </div>
             </div>
 
@@ -114,8 +117,6 @@
                     </div>
                     <p>Let's say I designed sounds for a game about sentient kitchen appliances battling aliens. The toaster's jump sound? Chef's kiss. The refrigerator's ice dispenser weapon? Terrifying yet satisfying. Players would feel every blender attack right in their bones.</p>
                     <p class="demo-note">Pretend this is impressive work I've actually done. Look how professional!</p>
-                    <!-- Case study link commented out as requested -->
-                    <!-- <a href="#" class="project-link">View Case Study</a> -->
                 </div>
             </div>
 
@@ -141,8 +142,6 @@
                     </div>
                     <p>Picture this: I created a sonic logo so memorable for [insert company name] that people hum it in their sleep. The three-note sequence somehow encapsulates their entire brand philosophy while also making you crave their products. Pure audio wizardry.</p>
                     <p class="demo-note">This space reserved for actual portfolio content someday.</p>
-                    <!-- Case study link commented out as requested -->
-                    <!-- <a href="#" class="project-link">View Case Study</a> -->
                 </div>
             </div>
         </section>
