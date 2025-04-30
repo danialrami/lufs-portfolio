@@ -111,7 +111,3 @@ To use this code as a drop-in replacement:
 2. Copy all files from this package to your web server or hosting environment
 3. Ensure all file paths are correct for your environment
 4. Test the website to ensure everything is working correctly
-
-## Live Demo
-
-A live demo of the updated website is available at: https://yrmtmtbi.manus.space
