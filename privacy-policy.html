@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUFS Audio | Privacy Policy</title>
+    <!-- Favicon -->
+    <link rel="icon" href="assets/lufs-LOGO-03.png" type="image/png">
+    <!-- Preload fonts -->
+    <link rel="preload" href="assets/fonts/Inter-Regular.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="assets/fonts/Inter-Bold.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="assets/fonts/HostGrotesk-Regular.ttf" as="font" type="font/truetype" crossorigin>
+    <link rel="preload" href="assets/fonts/HostGrotesk-Bold.ttf" as="font" type="font/truetype" crossorigin>
+    <!-- Preload audio files -->
+    <link rel="preload" href="audio/hover.mp3" as="audio">
+    <link rel="preload" href="audio/click.mp3" as="audio">
+    <link rel="preload" href="audio/ambient.mp3" as="audio">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/portfolio.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/cursor.css">
+    <link rel="stylesheet" href="css/logo-fix.css">
+    <link rel="stylesheet" href="css/section-fixes.css">
+    <link rel="stylesheet" href="css/mobile-menu.css">
+    <link rel="stylesheet" href="css/font-implementation.css">
+    <link rel="stylesheet" href="css/media-player.css">
+    <link rel="stylesheet" href="css/header-styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        /* Privacy Policy specific styles */
+        .privacy-policy-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .privacy-policy-header {
+            margin-bottom: 2rem;
+        }
+        
+        .privacy-policy-header h1 {
+            color: var(--color-white);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .last-updated {
+            color: var(--color-light-gray);
+            margin-top: 0.5rem;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+        
+        .privacy-policy-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .privacy-policy-section h2 {
+            color: var(--color-white);
+            font-size: 1.8rem;
+            margin-bottom: 1.25rem;
+            position: relative;
+            font-weight: 600;
+        }
+        
+        .privacy-policy-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--color-white);
+            font-weight: 600;
+        }
+        
+        .privacy-policy-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        
+        .privacy-policy-section ul,
+        .privacy-policy-section ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            list-style-type: disc;
+        }
+        
+        .privacy-policy-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .privacy-policy-section a {
+            color: var(--color-teal);
+            transition: color var(--transition-speed) ease;
+            text-decoration: underline;
+        }
+        
+        .privacy-policy-section a:hover {
+            color: var(--color-yellow);
+        }
+        
+        .privacy-policy-footer {
+            border-top: 1px solid var(--color-light-gray);
+            padding-top: 2rem;
+            margin-top: 3rem;
+            font-style: italic;
+            color: var(--color-light-gray);
+        }
+        
+        .emphasis {
+            font-size: 1.25rem;
+            color: var(--color-teal);
+            text-align: center;
+            padding: 1.5rem 0;
+            font-weight: bold;
+        }
+        
+        .blank-space {
+            height: 1rem;
+        }
+        
+        .contact-section {
+            text-align: center;
+            padding: 1rem;
+            /* background-color: var(--color-medium-gray); */
+            /* border-radius: 8px; */
+            margin: 2rem 0;
+        }
+        
+        .contact-section a {
+            color: var(--color-teal);
+            font-weight: bold;
+        }
+        
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 768px) {
+            .privacy-policy-container {
+                padding: 1.5rem;
+            }
+            
+            .privacy-policy-header h1 {
+                font-size: 2rem;
+            }
+            
+            .privacy-policy-section h2 {
+                font-size: 1.5rem;
+            }
+            
+            .privacy-policy-section h3 {
+                font-size: 1.2rem;
+            }
+            
+            .emphasis {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .privacy-policy-container {
+                padding: 1rem;
+            }
+            
+            .privacy-policy-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="custom-cursor"></div>
+
+    <div id="audio-toggle" class="audio-toggle">
+        <button id="toggle-audio" aria-label="Toggle audio"></button>
+    </div>
+
+    <nav>
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/lufs-wordmark.png" alt="LUFS Audio">
+            </a>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sound-design.html">Sound Design</a></li>
+            <li><a href="music-composition.html">Music Composition</a></li>
+            <li><a href="technical-audio.html">Technical Audio</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="privacy-policy-container">
+            <div class="privacy-policy-header">
+                <h1>Privacy Policy</h1>
+                <div class="last-updated">Last Updated: May 14, 2025</div>
+            </div>
+            
+            <div class="privacy-policy-section">
+                <p>Welcome to the LUFS Audio Privacy Policy, where we outline, in excruciating detail, all the personal data we collect from you.</p>
+                
+                <p>Ready? Here it is:</p>
+                
+                <div class="emphasis">We collect absolutely nothing. Zero. Zilch. Nada.</div>
+                
+                <p><em>End of privacy policy.</em></p>
+                
+                <div class="blank-space"></div>
+                
+                <p>But since you're still reading, and lawyers have conditioned us all to expect 20-page privacy policies, let's elaborate on our radical "no-data" approach:</p>
+            </div>
+            
+            <div class="privacy-policy-section">
+                <h2>1. WHAT INFORMATION WE COLLECT</h2>
+                
+                <p>We collect precisely zero data from you when you visit lufs.audio. We don't use cookies, we don't track your IP, we don't analyze your browsing habits, we don't store your device information, and we don't know how long you spent staring at the website animations.</p>
+                
+                <h3>1.1 Personal Data</h3>
+                <p>None.</p>
+                
+                <h3>1.2 Usage Data</h3>
+                <p>Also none.</p>
+                
+                <h3>1.3 Tracking Cookies</h3>
+                <p>Absolutely none. (Though we recommend actual cookies, preferably chocolate chip, while browsing our site).</p>
+            </div>
+            
+            <div class="privacy-policy-section">
+                <h2>2. WHY WE DON'T COLLECT YOUR DATA</h2>
+                
+                <p>We believe your personal information belongs to you alone. Novel concept, right? We're audio people, not data brokers. The only signals we care about are the ones measured in dB (or LUFS, heh).</p>
+            </div>
+            
+            <div class="privacy-policy-section">
+                <h2>3. THIRD-PARTY SHARING</h2>
+                
+                <p>We can't share what we don't have. No third parties receive your data from us because, as previously established, we don't collect any.</p>
+            </div>
+            
+            <div class="privacy-policy-section">
+                <h2>4. DATA SECURITY MEASURES</h2>
+                
+                <p>Our robust security approach to protecting your data involves not collecting it in the first place. This revolutionary method has proven 100% effective against data breaches of user information.</p>
+            </div>
+            
+            <div class="privacy-policy-section">
+                <h2>5. YOUR PRIVACY RIGHTS</h2>
+                
+                <p>You have the right to continue enjoying this refreshing data-collection-free zone. No GDPR requests needed because there's nothing to request.</p>
+            </div>
+            
+            <div class="privacy-policy-section">
+                <h2>6. CHANGES TO THIS POLICY</h2>
+                
+                <p>If we ever lose our minds and decide to start collecting data (we won't), we'll update this policy and place a prominent notice on our site, probably accompanied by a sad trombone sound effect.</p>
+            </div>
+            
+            <div class="privacy-policy-section">
+                <h2>7. FOR THE CURIOUS TECH-MINDED FOLKS</h2>
+                
+                <p>This website's source code is available on <a href="https://github.com/danialrami/lufs-portfolio" target="_blank">GitHub</a> under an open-source license. Feel free to inspect it, fork it, or use it as inspiration for your own data-respecting web presence.</p>
+                
+                <p>Our approach to privacy is inspired by organizations like:</p>
+                <ul>
+                    <li>The <a href="https://www.eff.org/issues/privacy" target="_blank">Electronic Frontier Foundation</a> (EFF) - Champions of digital privacy since 1990</li>
+                    <li>The <a href="https://www.gnu.org/philosophy/free-sw.html" target="_blank">GNU Project</a> - Pioneers of software freedom</li>
+                </ul>
+            </div>
+            
+            <div class="privacy-policy-section">
+                <h2>8. CONTACT INFORMATION</h2>
+                
+                <p>Questions about our innovative approach to not collecting your data? Contact us at:</p>
+                
+                <div class="contact-section">
+                    <a href="mailto:daniel@lufs.audio">daniel@lufs.audio</a>
+                </div>
+            </div>
+            
+            <div class="privacy-policy-footer">
+                <p>This privacy policy was crafted with the radical notion that websites don't actually need to track you. How refreshing.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="index.html">
+                    <img src="assets/lufs-LOGO-03.png" alt="LUFS Audio">
+                </a>
+            </div>
+            <div class="footer-contact">
+                <a href="mailto:daniel@lufs.audio">daniel@lufs.audio</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2025 LUFS Audio. All rights reserved. <a href="privacy-policy.html">Privacy Policy.</a>
+            </div>
+        </div>
+    </footer>
+
+    <canvas id="background-canvas"></canvas>
+    
+    <script src="js/audio-controller.js"></script>
+    <script src="js/three-background.js"></script>
+    <script src="js/cursor.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
