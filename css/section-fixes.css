@@ -104,3 +104,120 @@ p, .tag, .category-link {
   font-family: var(--font-secondary);
   letter-spacing: 1px;
 }
+
+/* Music composition visualization specific adjustments */
+/* Add these to your css/section-fixes.css file */
+
+/* For category header visualizations */
+.category-header {
+  position: relative;
+  height: 50vh;
+  min-height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Make the visualization container take up the full width and height */
+.category-header .category-visualization {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Ensure that music visualizations have the proper width */
+.music-composition-header .category-visualization canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Ensure the background canvas stays behind content */
+#background-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Specific styling for visualization types */
+.music-visualization canvas {
+  opacity: 0.9; /* Higher opacity for music visualization */
+}
+
+.sound-visualization canvas {
+  opacity: 0.8; /* Sound design slightly transparent */
+}
+
+.technical-visualization canvas {
+  opacity: 0.85; /* Technical visualizations opacity */
+}
+
+/* Ensure visualization containers have correct z-index positioning */
+#sound-design-visualization,
+#music-composition-visualization,
+#technical-audio-visualization {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Ensure header content stays above visualizations */
+.category-header-content {
+  position: relative;
+  z-index: 5;
+  padding: 2rem;
+  background-color: rgba(17, 17, 17, 0.7);
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  text-align: center;
+  pointer-events: auto;
+}
+
+/* Hardware acceleration for smoother animations */
+canvas {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .category-visualization {
+    opacity: 0.6 !important; /* Force reduced opacity on mobile for better readability */
+  }
+  
+  .category-header {
+    height: 40vh;
+    min-height: 250px;
+  }
+}
+
+/* For WebKit browsers to ensure proper z-indexing */
+.category-visualization canvas {
+  -webkit-transform: translateZ(0);
+}
+
+/* Category header background colors */
+.sound-design-header {
+  background-color: rgba(120, 190, 186, 0.05);
+}
+
+.music-composition-header {
+  background-color: rgba(231, 178, 37, 0.05);
+}
+
+.technical-audio-header {
+  background-color: rgba(211, 82, 51, 0.05);
+}

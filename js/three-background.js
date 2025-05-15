@@ -1,5 +1,5 @@
-// Original Three.js background visualization from first iteration
-// Reintegrated based on client feedback for more subtle animations
+// Three.js background visualization with unified approach for LUFS Audio Portfolio
+// This file handles both background and category visualizations
 
 class ThreeBackground {
   constructor() {
@@ -19,6 +19,10 @@ class ThreeBackground {
       blue: 0x2069af
     };
     
+    // Store instance for potential external reference
+    ThreeBackground.instance = this;
+    
+    // Bind methods
     this.init = this.init.bind(this);
     this.createParticles = this.createParticles.bind(this);
     this.createLines = this.createLines.bind(this);
@@ -205,6 +209,11 @@ class CategoryVisualization {
     this.mesh = null;
     this.mouseX = 0;
     this.mouseY = 0;
+    this.animationFrameId = null;
+    this.isVisible = true;
+    
+    // Check if we're on a category page or home page
+    this.isCategoryPage = document.querySelector('.category-header') !== null;
     
     this.colors = {
       sound: 0x78BEBA,    // teal
@@ -212,12 +221,20 @@ class CategoryVisualization {
       technical: 0xD35233 // red
     };
     
+    // Store instance for external reference
+    if (!CategoryVisualization.instances) {
+      CategoryVisualization.instances = [];
+    }
+    CategoryVisualization.instances.push(this);
+    
+    // Bind methods
     this.init = this.init.bind(this);
     this.createVisualization = this.createVisualization.bind(this);
     this.onContainerMouseMove = this.onContainerMouseMove.bind(this);
     this.onContainerResize = this.onContainerResize.bind(this);
     this.animate = this.animate.bind(this);
     this.render = this.render.bind(this);
+    this.cleanup = this.cleanup.bind(this);
   }
   
   init() {
@@ -229,24 +246,38 @@ class CategoryVisualization {
     // Create camera
     const width = this.container.clientWidth;
     const height = this.container.clientHeight;
-    this.camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-    this.camera.position.z = 5;
+    
+    // Use wider field of view for category pages
+    const fov = this.isCategoryPage ? 90 : 75;
+    this.camera = new THREE.PerspectiveCamera(fov, width / height, 0.1, 1000);
+    
+    // Position camera further back for category pages
+    this.camera.position.z = this.isCategoryPage ? 8 : 5;
     
     // Create renderer
-    this.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    this.renderer = new THREE.WebGLRenderer({ 
+      alpha: true, 
+      antialias: true
+    });
+    
     this.renderer.setSize(width, height);
-    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
     this.container.appendChild(this.renderer.domElement);
     
     // Create visualization based on type
     this.createVisualization();
     
     // Add event listeners
-    this.container.addEventListener('mousemove', this.onContainerMouseMove);
-    window.addEventListener('resize', this.onContainerResize);
+    this.container.addEventListener('mousemove', this.onContainerMouseMove, { passive: true });
+    window.addEventListener('resize', this.onContainerResize, { passive: true });
     
     // Start animation
     this.animate();
+    
+    // Add category class to help with styling
+    if (this.container) {
+      this.container.classList.add(`${this.type}-visualization`);
+    }
   }
   
   createVisualization() {
@@ -266,9 +297,11 @@ class CategoryVisualization {
   }
   
   createSoundVisualization() {
-    // Create a group of cubes for sound design
+    // Create more cubes for category pages
+    const cubeCount = this.isCategoryPage ? 35 : 20;
+    const spreadFactor = this.isCategoryPage ? 15 : 5;
+    
     const group = new THREE.Group();
-    const cubeCount = 20;
     const color = this.colors.sound;
     
     for (let i = 0; i < cubeCount; i++) {
@@ -281,9 +314,9 @@ class CategoryVisualization {
       });
       
       const cube = new THREE.Mesh(geometry, material);
-      cube.position.x = (Math.random() - 0.5) * 5;
-      cube.position.y = (Math.random() - 0.5) * 5;
-      cube.position.z = (Math.random() - 0.5) * 5;
+      cube.position.x = (Math.random() - 0.5) * spreadFactor;
+      cube.position.y = (Math.random() - 0.5) * spreadFactor;
+      cube.position.z = (Math.random() - 0.5) * spreadFactor;
       cube.rotation.x = Math.random() * Math.PI;
       cube.rotation.y = Math.random() * Math.PI;
       
@@ -300,57 +333,125 @@ class CategoryVisualization {
   }
   
   createMusicVisualization() {
-    // Create a wave pattern for music composition
-    const waveCount = 5;
+    // Create flowing wave visualization for music composition
+    // This is the UNIFIED implementation for both homepage and category page
     const group = new THREE.Group();
     const color = this.colors.music;
     
+    // Use more waves and wider spread for category pages
+    const waveCount = this.isCategoryPage ? 10 : 5; // 5 lines (like a musical staff) on the homepage, 20 on the category page
+    const xRange = this.isCategoryPage ? 30 : 15;
+    const baseAmplitude = this.isCategoryPage ? 0.4 : 0.3;
+    
     for (let w = 0; w < waveCount; w++) {
       const points = [];
-      const segments = 50;
-      const amplitude = 0.5 - (w * 0.1);
-      const yOffset = (w - waveCount/2) * 0.5;
+      // More segments for category page for smoother curves
+      const segments = this.isCategoryPage ? 100 : 70;
+      
+      // Calculate wave properties
+      const ySpace = this.isCategoryPage ? 0.5 : 0.4;
+      const yOffset = (w - waveCount/2) * ySpace;
+      
+      // Amplitude variation creates natural look
+      const amplitude = baseAmplitude - (Math.abs(w - waveCount/2) * 0.03);
+      const frequency = 0.1 + (w * 0.02);
+      const phase = w * Math.PI / 4;
       
       for (let i = 0; i <= segments; i++) {
-        const x = (i / segments) * 10 - 5;
-        const y = Math.sin(i * 0.2) * amplitude + yOffset;
-        const z = 0;
-        points.push(new THREE.Vector3(x, y, z));
+        // Create points for this wave
+        const x = (i / segments) * xRange - (xRange/2);
+        
+        // Complex wave shape with multiple frequencies
+        const primaryWave = Math.sin(x * frequency + phase) * amplitude;
+        const detailWave = Math.sin(x * frequency * 3 + phase * 2) * amplitude * 0.2;
+        const y = primaryWave + detailWave + yOffset;
+        
+        points.push(new THREE.Vector3(x, y, 0));
       }
       
-      const geometry = new THREE.BufferGeometry().setFromPoints(points);
-      const material = new THREE.LineBasicMaterial({
+      // Create line for this wave
+      const waveGeometry = new THREE.BufferGeometry().setFromPoints(points);
+      const waveMaterial = new THREE.LineBasicMaterial({
         color: color,
         transparent: true,
-        opacity: 0.7 - (w * 0.1)
+        opacity: 0.8 - (Math.abs(w - waveCount/2) * 0.07)
       });
       
-      const wave = new THREE.Line(geometry, material);
-      wave.userData.originalPoints = points.map(p => p.clone());
-      wave.userData.animationOffset = w * Math.PI / waveCount;
+      const wave = new THREE.Line(waveGeometry, waveMaterial);
+      
+      // Store data for animation
+      wave.userData = {
+        originalPoints: points.map(p => p.clone()),
+        frequency: frequency,
+        amplitude: amplitude,
+        phase: phase,
+        yOffset: yOffset
+      };
       
       group.add(wave);
     }
+    
+    // Add particles for visual interest
+    const particleCount = this.isCategoryPage ? 150 : 80;
+    const particleGeometry = new THREE.BufferGeometry();
+    const particlePositions = new Float32Array(particleCount * 3);
+    
+    // Particle distribution
+    const radiusX = this.isCategoryPage ? 15 : 8;
+    const radiusY = this.isCategoryPage ? 5 : 2;
+    
+    for (let i = 0; i < particleCount; i++) {
+      const i3 = i * 3;
+      // Create flattened oval particle distribution
+      const angle = Math.random() * Math.PI * 2;
+      // Add some randomness to radius for less uniform look
+      const rx = (Math.random() * radiusX) + (radiusX * 0.3);
+      const ry = (Math.random() * radiusY) + (radiusY * 0.3);
+      
+      particlePositions[i3] = Math.cos(angle) * rx;
+      particlePositions[i3 + 1] = Math.sin(angle) * ry;
+      particlePositions[i3 + 2] = (Math.random() - 0.5) * 3;
+    }
+    
+    particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+    
+    const particleMaterial = new THREE.PointsMaterial({
+      color: color,
+      size: this.isCategoryPage ? 0.15 : 0.1,
+      transparent: true,
+      opacity: 0.6,
+      sizeAttenuation: true
+    });
+    
+    const particles = new THREE.Points(particleGeometry, particleMaterial);
+    group.add(particles);
+    
+    // Store particles reference for animation
+    group.userData.particles = particles;
+    group.userData.originalParticlePositions = particlePositions.slice();
     
     this.scene.add(group);
     this.mesh = group;
   }
   
   createTechnicalVisualization() {
-    // Create a particle system for technical audio
-    const particleCount = 100;
+    // Create more particles for category pages
+    const particleCount = this.isCategoryPage ? 150 : 100;
+    const spreadFactor = this.isCategoryPage ? 15 : 10;
+    
     const geometry = new THREE.BufferGeometry();
     const vertices = [];
     const sizes = [];
     const color = this.colors.technical;
     
     for (let i = 0; i < particleCount; i++) {
-      const x = (Math.random() - 0.5) * 10;
-      const y = (Math.random() - 0.5) * 10;
-      const z = (Math.random() - 0.5) * 10;
+      const x = (Math.random() - 0.5) * spreadFactor;
+      const y = (Math.random() - 0.5) * spreadFactor;
+      const z = (Math.random() - 0.5) * spreadFactor;
       vertices.push(x, y, z);
       
-      sizes.push(Math.random() * 0.1 + 0.05);
+      // Larger particles for category page
+      sizes.push(Math.random() * (this.isCategoryPage ? 0.15 : 0.1) + 0.05);
     }
     
     geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
@@ -360,7 +461,7 @@ class CategoryVisualization {
       color: color,
       transparent: true,
       opacity: 0.7,
-      size: 0.1,
+      size: this.isCategoryPage ? 0.15 : 0.1,
       sizeAttenuation: true
     });
     
@@ -374,7 +475,7 @@ class CategoryVisualization {
   }
   
   createDefaultVisualization() {
-    // Create a simple sphere as fallback
+    // Simple sphere fallback
     this.geometry = new THREE.SphereGeometry(1, 32, 32);
     this.material = new THREE.MeshBasicMaterial({
       color: 0x78BEBA,
@@ -388,6 +489,8 @@ class CategoryVisualization {
   }
   
   onContainerMouseMove(event) {
+    if (!this.container) return;
+    
     const rect = this.container.getBoundingClientRect();
     this.mouseX = ((event.clientX - rect.left) / this.container.clientWidth) * 2 - 1;
     this.mouseY = -((event.clientY - rect.top) / this.container.clientHeight) * 2 + 1;
@@ -406,16 +509,16 @@ class CategoryVisualization {
   }
   
   animate() {
-    requestAnimationFrame(this.animate);
+    this.animationFrameId = requestAnimationFrame(this.animate);
     this.render();
   }
   
   render() {
     const time = Date.now() * 0.001;
     
-    // Subtle camera movement based on mouse position
-    this.camera.position.x += (this.mouseX - this.camera.position.x) * 0.05;
-    this.camera.position.y += (this.mouseY - this.camera.position.y) * 0.05;
+    // Camera movement based on mouse
+    this.camera.position.x += (this.mouseX * 2 - this.camera.position.x) * 0.05;
+    this.camera.position.y += (this.mouseY * 2 - this.camera.position.y) * 0.05;
     this.camera.lookAt(this.scene.position);
     
     // Type-specific animations
@@ -437,19 +540,54 @@ class CategoryVisualization {
           break;
           
         case 'music':
-          // Animate waves
-          this.mesh.children.forEach(wave => {
-            const originalPoints = wave.userData.originalPoints;
-            const offset = wave.userData.animationOffset;
-            const positions = wave.geometry.attributes.position.array;
+          // Animate waves and particles
+          if (this.mesh.children) {
+            this.mesh.children.forEach((child, index) => {
+              if (child.type === 'Line' && child.userData.originalPoints) {
+                // Animate wave points
+                const originalPoints = child.userData.originalPoints;
+                const frequency = child.userData.frequency;
+                const amplitude = child.userData.amplitude;
+                const phase = child.userData.phase;
+                const yOffset = child.userData.yOffset;
+                const positions = child.geometry.attributes.position.array;
+                
+                // Animation time factor - slower for more graceful movement
+                const timeFactor = time * 0.7;
+                
+                for (let i = 0; i < positions.length / 3; i++) {
+                  const x = originalPoints[i].x;
+                  
+                  // Complex animation combining multiple waves
+                  const primaryWave = Math.sin(x * frequency + phase + timeFactor) * amplitude;
+                  const detailWave = Math.sin(x * frequency * 2.5 + phase * 1.5 + timeFactor * 1.2) * amplitude * 0.15;
+                  // Add mouse influence for interactivity
+                  const mouseInfluence = Math.sin(x * 0.3 + timeFactor * 0.5) * this.mouseY * 0.05;
+                  
+                  positions[i * 3 + 1] = primaryWave + detailWave + mouseInfluence + yOffset;
+                }
+                
+                child.geometry.attributes.position.needsUpdate = true;
+              } else if (child.type === 'Points') {
+                // Animate particles
+                const positions = child.geometry.attributes.position.array;
+                
+                for (let i = 0; i < positions.length; i += 3) {
+                  // Gentle particle movement
+                  positions[i] += Math.sin(time * 0.7 + i * 0.01) * 0.01;
+                  positions[i + 1] += Math.cos(time * 0.7 + i * 0.01) * 0.005;
+                }
+                
+                child.geometry.attributes.position.needsUpdate = true;
+                
+                // Very slow rotation
+                child.rotation.z = time * 0.03;
+              }
+            });
             
-            for (let i = 0; i < positions.length / 3; i++) {
-              const originalY = originalPoints[i].y;
-              positions[i * 3 + 1] = originalY + Math.sin(time * 2 + i * 0.2 + offset) * 0.2;
-            }
-            
-            wave.geometry.attributes.position.needsUpdate = true;
-          });
+            // Subtle overall movement
+            this.mesh.rotation.z = Math.sin(time * 0.1) * 0.02;
+          }
           break;
           
         case 'technical':
@@ -468,6 +606,11 @@ class CategoryVisualization {
           }
           
           this.mesh.geometry.attributes.position.needsUpdate = true;
+          
+          // Add rotation for category page
+          if (this.isCategoryPage) {
+            this.mesh.rotation.y = time * 0.05;
+          }
           break;
           
         default:
@@ -481,49 +624,130 @@ class CategoryVisualization {
     
     this.renderer.render(this.scene, this.camera);
   }
+  
+  cleanup() {
+    // Proper cleanup to prevent memory leaks
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
+    
+    // Remove event listeners
+    if (this.container) {
+      this.container.removeEventListener('mousemove', this.onContainerMouseMove);
+    }
+    window.removeEventListener('resize', this.onContainerResize);
+    
+    // Dispose of Three.js objects
+    if (this.mesh) {
+      if (this.mesh.traverse) {
+        this.mesh.traverse((child) => {
+          if (child.geometry) child.geometry.dispose();
+          if (child.material) {
+            if (Array.isArray(child.material)) {
+              child.material.forEach(material => material.dispose());
+            } else {
+              child.material.dispose();
+            }
+          }
+        });
+      } else {
+        if (this.mesh.geometry) this.mesh.geometry.dispose();
+        if (this.mesh.material) {
+          if (Array.isArray(this.mesh.material)) {
+            this.mesh.material.forEach(material => material.dispose());
+          } else {
+            this.mesh.material.dispose();
+          }
+        }
+      }
+    }
+    
+    // Remove renderer from DOM
+    if (this.renderer && this.renderer.domElement && this.renderer.domElement.parentNode) {
+      this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
+    }
+    
+    // Clear references
+    this.scene = null;
+    this.camera = null;
+    this.renderer = null;
+    this.geometry = null;
+    this.material = null;
+    this.mesh = null;
+  }
 }
 
 // Initialize visualizations when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-  // Initialize background
+  // Determine what page we're on
+  const currentPath = window.location.pathname;
+  const isHomepage = currentPath === '/' || currentPath.includes('index.html');
+  const isMusic = currentPath.includes('music-composition.html');
+  const isSound = currentPath.includes('sound-design.html');
+  const isTechnical = currentPath.includes('technical-audio.html');
+  
+  // Initialize the background on all pages
   const background = new ThreeBackground();
   background.init();
   
-  // Initialize category visualizations
-  const soundViz = document.getElementById('sound-design-visualization');
-  const musicViz = document.getElementById('music-composition-visualization');
-  const technicalViz = document.getElementById('technical-audio-visualization');
-  
-  if (soundViz) {
-    const soundVisualization = new CategoryVisualization('sound-design-visualization', 'sound');
-    soundVisualization.init();
-  }
-  
-  if (musicViz) {
-    const musicVisualization = new CategoryVisualization('music-composition-visualization', 'music');
-    musicVisualization.init();
-  }
-  
-  if (technicalViz) {
-    const technicalVisualization = new CategoryVisualization('technical-audio-visualization', 'technical');
-    technicalVisualization.init();
-  }
-  
-  // Initialize category header visualization if on category page
-  const categoryViz = document.getElementById('category-visualization');
-  if (categoryViz) {
-    let type = 'default';
+  // Initialize homepage category sections if on homepage
+  if (isHomepage) {
+    const soundViz = document.getElementById('sound-design-visualization');
+    const musicViz = document.getElementById('music-composition-visualization');
+    const technicalViz = document.getElementById('technical-audio-visualization');
     
-    // Determine which category page we're on
-    if (document.title.includes('Sound Design')) {
-      type = 'sound';
-    } else if (document.title.includes('Music Composition')) {
-      type = 'music';
-    } else if (document.title.includes('Technical Audio')) {
-      type = 'technical';
+    if (soundViz) {
+      const soundVisualization = new CategoryVisualization('sound-design-visualization', 'sound');
+      soundVisualization.init();
     }
     
-    const categoryVisualization = new CategoryVisualization('category-visualization', type);
-    categoryVisualization.init();
+    if (musicViz) {
+      const musicVisualization = new CategoryVisualization('music-composition-visualization', 'music');
+      musicVisualization.init();
+    }
+    
+    if (technicalViz) {
+      const technicalVisualization = new CategoryVisualization('technical-audio-visualization', 'technical');
+      technicalVisualization.init();
+    }
+  } 
+  // Initialize category visualizations on category pages
+  else {
+    const categoryViz = document.getElementById('category-visualization');
+    if (categoryViz) {
+      let type = 'default';
+      
+      if (isSound) {
+        type = 'sound';
+      } else if (isMusic) {
+        type = 'music';
+      } else if (isTechnical) {
+        type = 'technical';
+      }
+      
+      const categoryVisualization = new CategoryVisualization('category-visualization', type);
+      categoryVisualization.init();
+    }
   }
+  
+  // Cleanup on page unload
+  window.addEventListener('beforeunload', function() {
+    // Dispose WebGL contexts
+    if (CategoryVisualization.instances) {
+      CategoryVisualization.instances.forEach(instance => {
+        if (typeof instance.cleanup === 'function') {
+          instance.cleanup();
+        }
+      });
+    }
+    
+    // Clear WebGL contexts from canvases
+    const canvases = document.querySelectorAll('canvas');
+    canvases.forEach(canvas => {
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (gl) {
+        gl.getExtension('WEBGL_lose_context')?.loseContext();
+      }
+    });
+  });
 });

@@ -61,6 +61,8 @@
                 <h1>Music Composition</h1>
                 <p>🎹🎤 la la la, beautiful beautiful</p>
             </div>
+            <!-- Added visualization container here -->
+            <div id="category-visualization" class="category-visualization"></div>
         </section>
 
         <!-- Portfolio Projects -->
@@ -114,31 +116,6 @@
                     <p class="demo-note">Music composed in Logic. Mixed and Mastered with Ozone and custom tooling</p>
                 </div>
             </div>
-
-            <!-- Project 3 
-            <div class="project-card">
-                <div class="project-media">
-                    <div class="project-image">
-                        <img src="images/placeholder-music-3.jpg" alt="Commercial Jingle">
-                    </div>
-                    <div class="audio-player">
-                        <audio controls>
-                            <source src="audio/placeholder-music-3.mp3" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <h2>Imaginary Commercial Jingle</h2>
-                    <div class="project-tags">
-                        <span class="tag">Catchy</span>
-                        <span class="tag">30-Seconds</span>
-                        <span class="tag">Gets Stuck In Head</span>
-                    </div>
-                    <p>I allegedly created a jingle for a fictional pet food brand that was so catchy, people reported their cats dancing to it. The marketing team said engagement went up 500% and sales quadrupled, but that's probably an exaggeration. The key change at the 15-second mark? Pure gold.</p>
-                    <p class="demo-note">Someday real music will live here. For now, just hum something nice.</p>
-                </div>
-            </div> -->
         </section>
     </main>
 
@@ -159,10 +136,11 @@
     </footer>
 
     <canvas id="background-canvas"></canvas>
+    
+    <!-- Simplified script loading with correct order -->
     <script src="js/audio-controller.js"></script>
-    <script src="js/background-visualizer.js"></script>
-    <script src="js/category-visualizations.js"></script>
-    <script src="js/header-visualizations.js"></script>
+    <!-- Use only the unified three-background.js file -->
+    <script src="js/three-background.js"></script>
     <script src="js/cursor.js"></script>
     <script src="js/main.js"></script>
     <script src="js/mobile-menu.js"></script>

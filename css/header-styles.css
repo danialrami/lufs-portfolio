@@ -89,3 +89,58 @@ canvas.visualization-canvas {
     font-size: 1.75rem;
   }
 }
+
+/* Additional category header CSS modifications */
+/* Add this to your css/header-styles.css file or css/section-fixes.css */
+
+/* Ensure category header contains the visualization properly */
+.category-header {
+  position: relative;
+  height: 50vh;
+  min-height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Make sure the visualization container exists and is positioned correctly */
+.category-header .category-visualization {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Specific styling for music composition visualization */
+.music-composition-header .category-visualization {
+  opacity: 0.9;
+}
+
+/* Ensure content stays above visualization */
+.category-header-content {
+  position: relative;
+  z-index: 5;
+  background-color: rgba(17, 17, 17, 0.7);
+  padding: 2rem;
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  text-align: center;
+}
+
+/* Style the header by category type */
+.sound-design-header {
+  background-color: rgba(120, 190, 186, 0.05);
+}
+
+.music-composition-header {
+  background-color: rgba(231, 178, 37, 0.05);
+}
+
+.technical-audio-header {
+  background-color: rgba(211, 82, 51, 0.05);
+}

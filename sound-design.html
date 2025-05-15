@@ -66,6 +66,8 @@
                 <h1>Sound Design</h1>
                 <p>🎛️🎚️ bleep bloop</p>
             </div>
+            <!-- Added visualization container here -->
+            <div id="category-visualization" class="category-visualization"></div>
         </section>
 
         <!-- Portfolio Projects -->
@@ -94,56 +96,6 @@
                     <p class="demo-note">SFX and music made with Logic. Implemented with React Native, and later ported to Unity</p>
                 </div>
             </div>
-
-            <!-- Project 2 
-            <div class="project-card">
-                <div class="project-media">
-                    <div class="project-image">
-                        <img src="images/placeholder-sound-design-2.jpg" alt="Game Sound Effects">
-                    </div>
-                    <div class="audio-player">
-                        <audio controls>
-                            <source src="audio/placeholder-sound.mp3" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <h2>Example: Game Sound Effects</h2>
-                    <div class="project-tags">
-                        <span class="tag">Pew-Pew</span>
-                        <span class="tag">Kaboom</span>
-                        <span class="tag">Whoosh</span>
-                    </div>
-                    <p>Let's say I designed sounds for a game about sentient kitchen appliances battling aliens. The toaster's jump sound? Chef's kiss. The refrigerator's ice dispenser weapon? Terrifying yet satisfying. Players would feel every blender attack right in their bones.</p>
-                    <p class="demo-note">Pretend this is impressive work I've actually done. Look how professional!</p>
-                </div>
-            </div> -->
-
-            <!-- Project 3 
-            <div class="project-card">
-                <div class="project-media">
-                    <div class="project-image">
-                        <img src="images/placeholder-sound-design-2.jpg" alt="Game Sound Effects">
-                    </div>
-                    <div class="audio-player">
-                        <audio controls>
-                            <source src="audio/placeholder-sound.mp3" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <h2>Fictional Brand Sonic Identity</h2>
-                    <div class="project-tags">
-                        <span class="tag">Earworms</span>
-                        <span class="tag">Sonic Branding</span>
-                        <span class="tag">Jingles</span>
-                    </div>
-                    <p>Picture this: I created a sonic logo so memorable for [insert company name] that people hum it in their sleep. The three-note sequence somehow encapsulates their entire brand philosophy while also making you crave their products. Pure audio wizardry.</p>
-                    <p class="demo-note">This space reserved for actual portfolio content someday.</p>
-                </div>
-            </div> -->
         </section>
     </main>
 
@@ -164,10 +116,11 @@
     </footer>
 
     <canvas id="background-canvas"></canvas>
+    
+    <!-- Simplified script loading with correct order -->
     <script src="js/audio-controller.js"></script>
-    <script src="js/background-visualizer.js"></script>
-    <script src="js/category-visualizations.js"></script>
-    <script src="js/header-visualizations.js"></script>
+    <!-- Use only the unified three-background.js file -->
+    <script src="js/three-background.js"></script>
     <script src="js/cursor.js"></script>
     <script src="js/main.js"></script>
     <script src="js/mobile-menu.js"></script>
