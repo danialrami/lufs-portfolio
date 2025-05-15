@@ -12,8 +12,8 @@ The website has been updated with the following improvements:
    - Ensured proper scaling of content and elements
 
 2. **Background Visualization**
-   - Added a subtle grayscale particle-network background behind all content
-   - Based on the main lufs.audio site's visualizer but with reduced saturation
+   - Added a subtle particle-network background behind all content
+   - Based on the main lufs.audio site's visualizer
    - Optimized for performance with reduced particle count and frame rate limiting
 
 3. **Section Header Animations**
@@ -71,17 +71,9 @@ lufs-portfolio/
 
 The background visualization is implemented in `background-visualizer.js`. It creates a subtle grayscale particle network similar to the main lufs.audio site but with reduced saturation to avoid distracting from the foreground content. The visualization is rendered on a canvas with z-index -1 to ensure it appears behind all other content.
 
-### Header Visualizations
-
-The category header visualizations are implemented in `header-visualizations.js`. This script creates Three.js scenes for each category header that match the visualizations on the homepage. The visualizations extend to the full width of the window and maintain the original colors and animation styles.
-
 ### Mobile Menu
 
 The mobile menu is implemented in `mobile-menu.js` and styled in `mobile-menu.css`. It slides in from the right side of the screen and uses teal underlines instead of bullet points for menu items, matching the style of the main lufs.audio site.
-
-### Media Players
-
-The media players are styled in `media-player.css`. The case study link buttons have been commented out as requested.
 
 ## Browser Compatibility
 
