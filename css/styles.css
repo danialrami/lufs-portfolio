@@ -249,11 +249,11 @@ main {
 }
 
 #sound-design-section .category-link {
-  border-color: var(--color-teal);
+  border-color: var(--color-blue);
 }
 
 #sound-design-section .category-link:hover {
-  background-color: var(--color-teal);
+  background-color: var(--color-blue);
   color: var(--color-black);
 }
 

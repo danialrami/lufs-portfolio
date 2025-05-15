@@ -66,7 +66,7 @@ class ThreeBackground {
     const particles = new THREE.Group();
     
     // Create particles for each section with different colors
-    this.createSectionParticles(particles, particleCount, this.colors.teal, -window.innerWidth/3, 0);
+    this.createSectionParticles(particles, particleCount, this.colors.blue, -window.innerWidth/3, 0);
     this.createSectionParticles(particles, particleCount, this.colors.yellow, 0, 0);
     this.createSectionParticles(particles, particleCount, this.colors.red, window.innerWidth/3, 0);
     
@@ -103,7 +103,7 @@ class ThreeBackground {
   
   createLines() {
     // Create lines for each section with different colors
-    this.createSectionLines(this.colors.teal, -window.innerWidth/3, 0);
+    this.createSectionLines(this.colors.blue, -window.innerWidth/3, 0);
     this.createSectionLines(this.colors.yellow, 0, 0);
     this.createSectionLines(this.colors.red, window.innerWidth/3, 0);
   }
@@ -216,7 +216,7 @@ class CategoryVisualization {
     this.isCategoryPage = document.querySelector('.category-header') !== null;
     
     this.colors = {
-      sound: 0x78BEBA,    // teal
+      sound: 0x2069af,    // blue
       music: 0xE7B225,    // yellow
       technical: 0xD35233 // red
     };
