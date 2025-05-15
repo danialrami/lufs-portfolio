@@ -88,8 +88,6 @@ The website has been tested and is compatible with:
 
 Several optimizations have been implemented to improve performance:
 
-1. **Reduced Particle Count**: The background visualization uses fewer particles on mobile and low-end devices.
-2. **Frame Rate Limiting**: Animations are limited to 30 FPS to reduce CPU/GPU usage.
 3. **Visibility Detection**: Animations pause when not visible in the viewport.
 4. **Event Listener Cleanup**: All event listeners are properly removed when components are destroyed.
 5. **WebGL Context Management**: WebGL contexts are properly managed to prevent memory leaks.
