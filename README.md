@@ -94,12 +94,3 @@ Several optimizations have been implemented to improve performance:
 4. **Event Listener Cleanup**: All event listeners are properly removed when components are destroyed.
 5. **WebGL Context Management**: WebGL contexts are properly managed to prevent memory leaks.
 6. **Asset Preloading**: Critical assets are preloaded to improve initial load time.
-
-## Installation
-
-To use this code as a drop-in replacement:
-
-1. Back up your existing files if needed
-2. Copy all files from this package to your web server or hosting environment
-3. Ensure all file paths are correct for your environment
-4. Test the website to ensure everything is working correctly
